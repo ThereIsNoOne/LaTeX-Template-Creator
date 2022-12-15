@@ -1,27 +1,35 @@
 """Author Szymon Lasota"""
-from settings import settings_path
+import json
+from typing import Dict, Any
+from settings import settings_path, Sections, user_path
 
 
 class TexFile:
 
     def __init__(
             self,
-            text: str = "",
-            title: str = "untitled.tex",
+            title: str = "untitled.json",
             path: str = None
     ) -> None:
         self.title = title
         if path is not None:
-            self.path = path + "/" + self.title
-        self.text = self.setup(text)
+            self.path = f"{path}/{self.title}"
+        else:
+            self.path = f"{user_path}/{self.title}"
+        self.text = self.setup()
+        self.sections = [
+            key for key in self.text.keys()
+            if key != Sections.PREAMBLE and key != Sections.END
+        ]
 
     def save(self) -> None:
         with open(self.path, "wt") as file:
-            file.write(self.text)
+            json.dump(self.text, file)
 
     @staticmethod
-    def setup(self, text: str) -> str:
-        with open(settings_path+"start.txt", "rt") as file:
-            output = file.read()
-        output += "\n" + text + "\\end{document}"
+    def setup() -> Dict[Any, str]:
+        output = {}
+        with open(settings_path+"/start.txt", "rt") as file:
+            output[Sections.PREAMBLE] = file.read()
+        output[Sections.END] = "\\end{document}"
         return output
