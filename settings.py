@@ -13,4 +13,5 @@ def get_percent(num: int, percent: float) -> int:
 
 class Sections(str):
     PREAMBLE = "Preamble"
+    INTRO = "Introduction"
     END = "End"

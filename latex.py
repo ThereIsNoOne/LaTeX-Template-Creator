@@ -44,6 +44,6 @@ class TexFile:
         output = {}
         with open(settings_path+"/start.txt", "rt") as file:
             output[Sections.PREAMBLE] = file.read()
-        output["Introduction"] = "Some kind of text"
+        output[Sections.INTRO] = "Some kind of text"
         output[Sections.END] = "\\end{document}"
         return output

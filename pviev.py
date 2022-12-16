@@ -16,7 +16,8 @@ from customtkinter import (
     END,
 )
 
-from settings import M_WIDTH, M_HEIGHT, get_percent
+
+from settings import M_WIDTH, M_HEIGHT, get_percent, Sections
 from latex import TexFile
 
 
@@ -25,7 +26,7 @@ class ProjectWindow(CTk):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.combo_box = None
-        self.entry = None
+        self.entry = Sections.INTRO
         self.active_section = None
         self.geometry(f"{M_WIDTH}x{M_HEIGHT}")
         self.protocol("WM_DELETE_WINDOW", self.close)
@@ -114,14 +115,14 @@ class ProjectWindow(CTk):
         return frame
 
     def save(self) -> None:
-        self.tex_file.text[self.active_section] = self.entry.get(
-            1.0, END)
+        self.tex_file.text[self.active_section] =\
+            self.entry.textbox.get(1.0, END)
         self.tex_file.save()
 
     def switch(self, section: str) -> None:
         self.save()
         self.active_section = section
-        self.entry.delete(1.0, END)
+        self.entry.textbox.delete(1.0, END)
         self.entry.insert(INSERT, self.tex_file.text[section])
         print(f"switch {section}")
 
