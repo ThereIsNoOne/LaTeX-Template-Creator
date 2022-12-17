@@ -2,8 +2,6 @@
 import json
 from typing import Dict, Any
 
-from customtkinter import CTkToplevel
-
 from settings import settings_path, Sections, user_path
 
 
