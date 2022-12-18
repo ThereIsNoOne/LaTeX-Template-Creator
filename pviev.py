@@ -1,6 +1,10 @@
 """Author Szymon Lasota"""
+import os
 import sys
 from tkinter import Menu
+from tkinter import filedialog as fd
+from tkinter import messagebox as msg
+from typing import Callable
 
 from customtkinter import (
     CTk,
@@ -16,32 +20,45 @@ from customtkinter import (
     END,
 )
 
-
-from settings import M_WIDTH, M_HEIGHT, get_percent, Sections
 from latex import TexFile
+from settings import (
+    M_WIDTH,
+    M_HEIGHT,
+    get_percent,
+    Sections, user_path, SETTINGS, update_settings,
+)
 
 
 class ProjectWindow(CTk):
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(
+            self,
+            path_project: str,
+            title: str,
+            new_project: Callable[[], None],
+            *args,
+            **kwargs
+    ) -> None:
         super().__init__(*args, **kwargs)
-        self.combo_box = None
         self.entry = Sections.INTRO
-        self.active_section = None
+        self.project_path = path_project
+        self.new_project = new_project
+        self.active_section = Sections.PREAMBLE
         self.geometry(f"{M_WIDTH}x{M_HEIGHT}")
         self.protocol("WM_DELETE_WINDOW", self.close)
-        self.tex_file = TexFile()
+        self.tex_file = TexFile(path=path_project, title=title)
         self.create_gui()
 
     def close(self) -> None:
+        self.save()
         self.destroy()
         sys.exit()
 
     def create_gui(self) -> None:
-        main_frame = self.mainframe_setup()
-        main_frame.place(x=M_WIDTH//3, y=0)
         left_frame = self.left_frame_setup()
         left_frame.place(x=0, y=0)
+        main_frame = self.mainframe_setup()
+        main_frame.place(x=M_WIDTH//3, y=0)
         self.menu_setup()
 
     def mainframe_setup(self) -> CTkFrame:
@@ -57,7 +74,9 @@ class ProjectWindow(CTk):
             height=M_HEIGHT
         )
         self.entry.place(x=0, y=0)
-
+        self.entry.insert(
+            INSERT, self.tex_file.text[self.active_section]
+        )
         return main_frame
 
     def menu_setup(self) -> None:
@@ -116,7 +135,7 @@ class ProjectWindow(CTk):
 
     def save(self) -> None:
         self.tex_file.text[self.active_section] =\
-            self.entry.textbox.get(1.0, END)
+            self.entry.textbox.get(1.0, "end-1c")
         self.tex_file.save()
 
     def switch(self, section: str) -> None:
@@ -127,13 +146,40 @@ class ProjectWindow(CTk):
         print(f"switch {section}")
 
     def new(self) -> None:
-        print("new")
+        self.save()
+        self.new_project()
 
     def add_pic(self) -> None:
-        print("add_pic")
+
+        path = fd.askopenfilename(
+            title="Open file",
+        )
+        if not (
+            path.lower().endswith(".jpg")
+            or path.lower().endswith(".pdf")
+            or path.lower().endswith(".png")
+        ):
+            msg.showerror(
+                title="Wrong file extension",
+                message="Your file must be .pdf, .png, .jpg"
+            )
+            return
+
+        name = ""
+        for char in path[::-1]:
+            if char == "/":
+                break
+            name += char
+        self.tex_file.add_pic(path, name[::-1], self.active_section)
+        self.entry.textbox.delete(1.0, END)
+        self.entry.insert(
+            INSERT, self.tex_file.text[self.active_section]
+        )
+        self.save()
 
     def add_section(self) -> None:
         top = CTkToplevel(self)
+        # top.geometry(f"{TOP_WIDTH}x{TOP_HEIGHT}")
         top.title("Add section")
         label = CTkLabel(top, text="Insert section name:")
         entry = CTkEntry(top)
@@ -160,6 +206,47 @@ class ProjectWindow(CTk):
         print("add_table")
 
     def save_as(self) -> None:
+        top = CTkToplevel(self)
+        # top.geometry(f"{TOP_WIDTH}x{TOP_HEIGHT}")
+        top.title("New name")
+        label = CTkLabel(top, text="Insert new project name:")
+        entry = CTkEntry(top)
+        button = CTkButton(
+            top,
+            text="Ok",
+            command=lambda: self.process_new_name(entry.get(), top)
+        )
+        label.grid(row=0, column=0, columnspan=2)
+        entry.grid(row=1, column=0, columnspan=2)
+        button.grid(row=2, column=1)
+
+    def process_new_name(self, new_name: str, top: CTkToplevel) -> None:
+        os.rename(
+            self.project_path + f"/{self.tex_file.title}",
+            self.project_path + new_name + ".json"
+        )
+        os.rename(
+            self.project_path,
+            self.project_path[:self.project_path.find("/")+1] + new_name
+            + "/"
+        )
+        self.tex_file.title = new_name + ".json"
+        self.tex_file.folder_path =(
+                self.project_path[:self.project_path.find("/") + 1] + new_name
+                + "/"
+        )
+        self.tex_file.path = (
+            self.project_path[:self.project_path.find("/") + 1] + new_name
+            + "/"
+            + self.tex_file.title
+        )
+        self.project_path = (
+            self.project_path[:self.project_path.find("/") + 1] + new_name
+            + "/"
+        )
+        SETTINGS["current"] = self.project_path
+        update_settings(SETTINGS)
+        top.destroy()
         self.tex_file.save()
 
     def export(self) -> None:
