@@ -1,5 +1,6 @@
 {
     "Preamble": "\\documentclass[12pt,a4paper]{article}\n\\usepackage[MeX]{polski}\n\\usepackage{fontenc}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amsmath,amsfonts}\n\\usepackage{graphicx}\n\\usepackage{amsmath}\n\\usepackage[small]{caption}\n\\usepackage{makecell}\n\\usepackage{url}\n\\def\\UrlBreaks{\\do\\/\\do-\\/\\do.\\/\\do_}\n\\usepackage[all]{nowidow}\n\\usepackage[table,xcdraw]{xcolor}\n\\usepackage{upquote}\n\\usepackage{setspace}\n\\setstretch{1.00}\n\\usepackage[top=25mm,left=20mm,bottom=25mm,right=20mm]{geometry}\n\\usepackage[colorlinks=true,citecolor=black,linkcolor=blue,urlcolor=blue]{hyperref}\n\\usepackage{multirow}\n\\usepackage{enumerate}\n\\usepackage{latexsym}\n\\usepackage{amssymb}\n\\usepackage{rotating}\n\\usepackage{graphicx}\n\\newcommand{\\m}[1]{\\textrm{#1}}\n\n\\title{}\n\\author{}\n\\date{\\today~r.}\n\n\\begin{document}\n\\maketitle{}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
     "Introduction": "Some kind of text\n",
-    "End": "\\end{document}"
+    "End": "\\end{document}",
+    "new": "\\begin{figure}[h!]\n\t\\centering\n\t\\includegraphics[width=.75\\textwidth]{3.11.jpg}\n\t\\caption{caption}\n\t\\label{mylabel}\n\\end{figure}"
 }

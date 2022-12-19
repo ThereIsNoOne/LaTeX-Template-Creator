@@ -261,7 +261,7 @@ class ProjectWindow(CTk):
                 ).name
         except AttributeError:
             print("Cancelled")
-        self.tex_file.export(path, path.split("/")[-1])
+        self.tex_file.export(path)
 
     def open(self) -> None:
         print("Open")
