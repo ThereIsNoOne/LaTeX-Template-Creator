@@ -6,27 +6,13 @@ from tkinter import filedialog as fd
 from tkinter import messagebox as msg
 from typing import Callable
 
-from customtkinter import (
-    CTk,
-    CTkTextbox,
-    CTkFrame,
-    CTkOptionMenu,
-    StringVar,
-    CTkToplevel,
-    CTkLabel,
-    CTkEntry,
-    CTkButton,
-    INSERT,
-    END,
-)
+from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
+                           CTkLabel, CTkOptionMenu, CTkTextbox, CTkToplevel,
+                           StringVar)
 
 from latex import TexFile
-from settings import (
-    M_WIDTH,
-    M_HEIGHT,
-    get_percent,
-    Sections, user_path, SETTINGS, update_settings,
-)
+from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Sections, get_percent,
+                      update_settings, user_path)
 
 
 class ProjectWindow(CTk):
@@ -71,7 +57,7 @@ class ProjectWindow(CTk):
         self.entry = CTkTextbox(
             main_frame,
             width=int(M_WIDTH // 2),
-            height=M_HEIGHT
+            height=M_HEIGHT,
         )
         self.entry.place(x=0, y=0)
         self.entry.insert(
@@ -129,6 +115,24 @@ class ProjectWindow(CTk):
         button.place(
             x=get_percent(M_WIDTH//3, 0.10),
             y=get_percent(M_HEIGHT, 0.90)
+        )
+        add_pic_button = CTkButton(
+            frame,
+            text="Add picture",
+            command=self.add_pic
+        )
+        add_pic_button.place(
+            x=get_percent(M_WIDTH//3, 0.10),
+            y=get_percent(M_HEIGHT, 0.85)
+        )
+        add_table_button = CTkButton(
+            frame,
+            text="Add table",
+            command=self.add_table
+        )
+        add_table_button.place(
+            x=get_percent(M_WIDTH//3, 0.10),
+            y=get_percent(M_HEIGHT, 0.80)
         )
 
         return frame
@@ -231,7 +235,7 @@ class ProjectWindow(CTk):
             + "/"
         )
         self.tex_file.title = new_name + ".json"
-        self.tex_file.folder_path =(
+        self.tex_file.folder_path = (
                 self.project_path[:self.project_path.find("/") + 1] + new_name
                 + "/"
         )
@@ -250,7 +254,14 @@ class ProjectWindow(CTk):
         self.tex_file.save()
 
     def export(self) -> None:
-        print("Export")
+        try:
+            path = fd.asksaveasfile(
+                filetypes=[("Text files", "*.tex")],
+                defaultextension=[("Text files", "*.tex")]
+                ).name
+        except AttributeError:
+            print("Cancelled")
+        self.tex_file.export(path, path.split("/")[-1])
 
     def open(self) -> None:
         print("Open")

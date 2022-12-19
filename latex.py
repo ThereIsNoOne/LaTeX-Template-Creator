@@ -4,7 +4,7 @@ import os
 from shutil import copyfile
 from typing import Any, Dict
 
-from settings import Sections, settings_path, FIGURE
+from settings import LatexFigure, Sections, settings_path
 
 
 class TexFile:
@@ -41,7 +41,8 @@ class TexFile:
 
     def add_pic(self, pic: str, name: str, section: str) -> None:
         copyfile(pic, self.folder_path + name)
-        self.text[section] += FIGURE
+        fig = LatexFigure(name)
+        self.text[section] += fig.figure
 
     def setup(self) -> Dict[Any, str]:
         temp_1 = {}
@@ -56,3 +57,16 @@ class TexFile:
             temp_1[Sections.INTRO] = "Some kind of text"
         output = {**temp_1, **temp_2, Sections.END: "\\end{document}"}
         return output
+
+    def export(self, path: str) -> None:
+        with open(self.path, "rt") as file:
+            text_dict = json.load(file)
+
+        text = ""
+        for key in text_dict.keys():
+            if key == Sections.PREAMBLE or key == Sections.END:
+                text += text_dict[key]
+                continue
+            text += f"\\section{key}\n" + text_dict[key]
+        with open(path, "wt") as file:
+            file.write(text)
