@@ -64,9 +64,12 @@ class TexFile:
 
         text = ""
         for key in text_dict.keys():
-            if key == Sections.PREAMBLE or key == Sections.END:
+            if key == Sections.PREAMBLE:
                 text += text_dict[key]
                 continue
+            if key == Sections.END:
+                continue
             text += f"\\section{key}\n" + text_dict[key]
+        text += text_dict[Sections.END]
         with open(path, "wt") as file:
             file.write(text)
