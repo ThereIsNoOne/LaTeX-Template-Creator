@@ -331,10 +331,8 @@ class ProjectWindow(CTk):
         """
         for main_path, _, files in os.walk(self.project_path):
             for file in files:
-                print(file)
                 if file.endswith(".json"):
                     continue
-                print(path + file.split("/")[-1])  # fix pathing
                 copyfile(main_path + file, path + "/" + file.split("/")[-1])
 
     def open(self) -> None:
