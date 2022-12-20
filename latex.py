@@ -51,7 +51,7 @@ class TexFile:
         try:
             with open(self.path, "rt") as file:
                 temp_2 = json.load(file)
-        except FileNotFoundError as exc:
+        except FileNotFoundError:
             temp_2 = {}
         if Sections.INTRO not in temp_2.keys():
             temp_1[Sections.INTRO] = "Some kind of text"
@@ -59,6 +59,8 @@ class TexFile:
         return output
 
     def export(self, path: str) -> None:
+        os.remove(path)
+        os.mkdir(path)
         with open(self.path, "rt") as file:
             text_dict = json.load(file)
 
@@ -71,5 +73,5 @@ class TexFile:
                 continue
             text += f"\\section{key}\n" + text_dict[key]
         text += text_dict[Sections.END]
-        with open(path, "wt") as file:
+        with open(path+"/main.tex", "wt") as file:
             file.write(text)

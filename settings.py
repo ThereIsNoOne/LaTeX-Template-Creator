@@ -17,7 +17,6 @@ with open(settings_path_json, "rt") as file:
 def update_settings(settings):
     with open(settings_path_json, "wt") as file:
         json.dump(settings, file, indent=4)
-# print(SETTINGS)
 
 
 def get_percent(num: int, percent: float) -> int:

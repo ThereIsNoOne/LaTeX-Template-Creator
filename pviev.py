@@ -1,6 +1,7 @@
 """Author Szymon Lasota"""
 import os
 import sys
+from shutil import copyfile
 from tkinter import Menu
 from tkinter import filedialog as fd
 from tkinter import messagebox as msg
@@ -256,12 +257,22 @@ class ProjectWindow(CTk):
     def export(self) -> None:
         try:
             path = fd.asksaveasfile(
-                filetypes=[("Text files", "*.tex")],
-                defaultextension=[("Text files", "*.tex")]
+                filetypes=[("All files", "*.*")],
                 ).name
         except AttributeError:
             print("Cancelled")
+            return
         self.tex_file.export(path)
+        self.pack_figs(path)
+
+    def pack_figs(self, path: str) -> None:
+        for main_path, _, files in os.walk(self.project_path):
+            for file in files:
+                print(file)
+                if file.endswith(".json"):
+                    continue
+                print(path + file.split("/")[-1])  # fix pathing
+                copyfile(main_path + file, path + file.split("/")[-1])
 
     def open(self) -> None:
         print("Open")
