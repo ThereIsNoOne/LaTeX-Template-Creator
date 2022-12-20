@@ -19,10 +19,12 @@ class MainGUI:
         ...
 
     def run(self) -> None:
+        """Run the active window."""
         self.window.run()
 
 
 def main() -> None:
+    """Main function, run when __name__ is __main__."""
     main_gui = MainGUI()
     main_gui.run()
 
