@@ -135,9 +135,6 @@ class ProjectWindow(CTk):
             height=M_HEIGHT
         )
 
-        current = StringVar(self)
-        current.set("Choose")
-
         combo_box = CTkOptionMenu(
             frame,
             values=self.tex_file.sections,
@@ -338,6 +335,6 @@ class ProjectWindow(CTk):
     def open(self) -> None:
         print("Open")
 
-    def run(self):
+    def run(self) -> None:
         """Run the project window."""
         self.mainloop()

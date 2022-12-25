@@ -1,3 +1,26 @@
 {
-    "current": ["UserData/new one/", "new one.json"]
+    "current": [
+        "UserData/new one/",
+        "new one.json"
+    ],
+    "window": {
+        "width": 1040,
+        "height": 720,
+        "main_width": 1040,
+        "main_height": 720,
+        "top_width": 300,
+        "top_height": 150
+    },
+    "equations": {
+        "Ohm Law": "I = \frac{U}{R}"
+    },
+    "displaymath": {
+        "Errors": "&\\Delta X = _val_\\%{\\m{rdg}} + _val_{\\m{dgt}} = _val_\\cdot _val_{\\m{ _unit_}} + 0,0003{\\m{ _unit_}} = _val_{\\m{ _unit_}},\\\\\n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{_val_}{_val_}\\cdot 100\\% = _val_\\%."
+    },
+    "projects": {
+        "new one": [
+            "UserData/new one/",
+            "new one.json"
+        ]
+    }
 }

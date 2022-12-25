@@ -4,21 +4,27 @@ Settings file, contains:
 
 - All the constants,
 - Settings imported form ``.json`` file,
-- Class for pictures and tables, for TeX files.
 """
 import json
 import os
 from json import load
 
-WIDTH, HEIGHT = 1040, 720
-M_WIDTH, M_HEIGHT = 1040, 720
-TOP_WIDTH, TOP_HEIGHT = 300, 150
 settings_path = os.path.join("ProjectData")
 user_path = os.path.join("UserData")
 settings_path_json = os.path.join("ProjectData", "SETTINGS.json")
 
 with open(settings_path_json, "rt") as file:
     SETTINGS = load(file)
+
+WIDTH, HEIGHT = (SETTINGS["window"]["width"], SETTINGS["window"]["height"])
+M_WIDTH, M_HEIGHT = (
+    SETTINGS["window"]["main_width"],
+    SETTINGS["window"]["main_height"]
+)
+TOP_WIDTH, TOP_HEIGHT = (
+    SETTINGS["window"]["top_width"],
+    SETTINGS["window"]["top_height"]
+)
 
 
 def update_settings(settings):
@@ -36,4 +42,3 @@ class Sections(str):
     PREAMBLE = "Preamble"
     INTRO = "Introduction"
     END = "End"
-
