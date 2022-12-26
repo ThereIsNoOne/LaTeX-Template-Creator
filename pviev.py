@@ -189,7 +189,7 @@ class ProjectWindow(CTk):
 
     def web_help(self) -> None:
         webbrowser.open(
-            "https://github.com/ThereIsNoOne/Project/tree/CTK#readme"
+            "https://github.com/ThereIsNoOne/Project/blob/master/README.md"
         )
 
     def save(self) -> None:

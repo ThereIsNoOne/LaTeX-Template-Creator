@@ -1,8 +1,5 @@
 {
-    "current": [
-        "UserData/new one/",
-        "new one.json"
-    ],
+    "current": "UserData/newName/",
     "window": {
         "width": 1040,
         "height": 720,
@@ -12,7 +9,8 @@
         "top_height": 150
     },
     "equations": {
-        "Ohm Law": "I = \\frac{U}{R}"
+        "Ohm Law": "I = \\frac{U}{R}",
+        "eq name": "New one eq"
     },
     "displaymath": {
         "Errors": "&\\Delta X = _val_\\%{\\m{rdg}} + _val_{\\m{dgt}} = _val_\\cdot _val_{\\m{ _unit_}} + 0,0003{\\m{ _unit_}} = _val_{\\m{ _unit_}},\\\\ \n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{_val_}{_val_}\\cdot 100\\% = _val_\\%.",

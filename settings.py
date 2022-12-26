@@ -46,4 +46,4 @@ class Sections(str):
 
 class Mode(str):
     DISPLAYMATH = "displaymath"
-    EQUATION = "equation"
+    EQUATION = "equations"
