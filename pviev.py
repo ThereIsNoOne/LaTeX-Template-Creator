@@ -12,8 +12,9 @@ from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
                            StringVar)
 
 from latex import TexFile
-from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Sections, get_percent,
-                      update_settings)
+from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Modes, Sections,
+                      get_percent, update_settings)
+from toplevel import EnterMath
 
 
 class ProjectWindow(CTk):
@@ -257,10 +258,13 @@ class ProjectWindow(CTk):
         print("add_table")
 
     def add_math(self) -> None:
-        print("add_math")
+        top = EnterMath(Modes.DISPLAYMATH, self.insert_text, self)
 
     def add_equation(self) -> None:
         print("add_equation")
+
+    def insert_text(self, math_object: str) -> None:
+        ...
 
     def save_as(self) -> None:
         """Method responsible for 'save as...' button."""
@@ -312,7 +316,7 @@ class ProjectWindow(CTk):
         """Export project to directory, prepare it for compilation."""
         try:
             path = fd.asksaveasfile(
-                filetypes=[("All files", "*.*")],
+                    filetypes=[("All files", "*.*")],
                 ).name
         except AttributeError:
             print("Cancelled")

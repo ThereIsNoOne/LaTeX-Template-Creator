@@ -42,3 +42,9 @@ class Sections(str):
     PREAMBLE = "Preamble"
     INTRO = "Introduction"
     END = "End"
+
+
+class Modes:
+    DISPLAYMATH = "displaymath"
+    EQUATION = "equation"
+    
