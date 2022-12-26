@@ -1,5 +1,8 @@
 {
-    "current": ["UserData/newName/", "newName.json"],
+    "current": [
+        "UserData/ThisIsNewName/",
+        "ThisIsNewName.json"
+    ],
     "window": {
         "width": 1040,
         "height": 720,

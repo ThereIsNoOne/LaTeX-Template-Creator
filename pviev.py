@@ -1,12 +1,12 @@
 """Author Szymon Lasota"""
 import os
 import sys
+import webbrowser
 from shutil import copyfile
 from tkinter import Menu
 from tkinter import filedialog as fd
 from tkinter import messagebox as msg
 from typing import Callable
-import webbrowser
 
 from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
                            CTkLabel, CTkOptionMenu, CTkTextbox, CTkToplevel,
@@ -337,7 +337,7 @@ class ProjectWindow(CTk):
             self.project_path[:self.project_path.find("/") + 1] + new_name
             + "/"
         )
-        SETTINGS["current"] = self.project_path
+        SETTINGS["current"] = [self.project_path, new_name + ".json"]
         update_settings(SETTINGS)
         top.destroy()
         self.tex_file.save()
