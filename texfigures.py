@@ -50,13 +50,16 @@ class LatexTable:
         repr = ""
         for col in self.df.columns:
             repr += f"\\multicolumn{1}{{|l|}}{{{col}}}"
-        repr += "\\\\ \\hline\n"
+            if col != self.df.columns[-1]:
+                repr += "&"
         for i in range(self.rows_num):
             repr += "\\\\ \\hline\n"
             for j in range(self.cols_num):
                 repr += f"{self.df.iloc[i, j]}"
                 if j != self.cols_num - 1:
                     repr += "&"
+                else:
+                    repr += "\\hline"
         return repr
 
 
@@ -77,7 +80,7 @@ class LatexMath:
     @classmethod
     def write_displaymath(cls, displaymath: str) -> str:
         dspmath_repr = str(
-            "\n\\begin{displaymath]\n"
+            "\n\\begin{displaymath}\n"
             + "\t\\begin{split}\n"
             + f"\t\t {cls.DISPLAYMATH[displaymath]}\n"
             + "\t\\end{split}\n"

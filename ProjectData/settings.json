@@ -16,7 +16,7 @@
         "eq name": "New one eq"
     },
     "displaymath": {
-        "Errors": "&\\Delta X = _val_\\%{\\m{rdg}} + _val_{\\m{dgt}} = _val_\\cdot _val_{\\m{ _unit_}} + 0,0003{\\m{ _unit_}} = _val_{\\m{ _unit_}},\\\\ \n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{_val_}{_val_}\\cdot 100\\% = _val_\\%.",
+        "Errors": "&\\Delta X = val\\%{\\m{rdg}} + val{\\m{dgt}} = val\\cdot val{\\m{ unit}} + 0,0003{\\m{ unit}} = val{\\m{ unit}},\\\\ \n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{val}{val}\\cdot 100\\% = val\\%.",
         "Indirect error": "&Z = f(X, Y),\\\\&\\delta Z = \\left|\\frac{\\partial Z}{\\partial Y}\\cdot \\Delta Y\\right| + \\left|\\frac{\\partial Z}{\\partial X}\\cdot \\Delta X\\right|"
     },
     "projects": {
