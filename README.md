@@ -1,0 +1,1 @@
+# LaTeX file template creator
