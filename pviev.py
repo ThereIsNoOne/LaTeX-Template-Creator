@@ -314,6 +314,12 @@ class ProjectWindow(CTk):
 
     def process_new_name(self, new_name: str, top: CTkToplevel) -> None:
         """Method responsible for changing the name of the project."""
+        if not new_name:
+            msg.showerror(
+                title="Fatal Error",
+                message="New project name must not be empty."
+            )
+            return
         os.rename(
             self.project_path + f"/{self.tex_file.title}",
             self.project_path + new_name + ".json"
