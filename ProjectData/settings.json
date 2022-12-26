@@ -12,10 +12,11 @@
         "top_height": 150
     },
     "equations": {
-        "Ohm Law": "I = \frac{U}{R}"
+        "Ohm Law": "I = \\frac{U}{R}"
     },
     "displaymath": {
-        "Errors": "&\\Delta X = _val_\\%{\\m{rdg}} + _val_{\\m{dgt}} = _val_\\cdot _val_{\\m{ _unit_}} + 0,0003{\\m{ _unit_}} = _val_{\\m{ _unit_}},\\\\\n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{_val_}{_val_}\\cdot 100\\% = _val_\\%."
+        "Errors": "&\\Delta X = _val_\\%{\\m{rdg}} + _val_{\\m{dgt}} = _val_\\cdot _val_{\\m{ _unit_}} + 0,0003{\\m{ _unit_}} = _val_{\\m{ _unit_}},\\\\ \n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{_val_}{_val_}\\cdot 100\\% = _val_\\%.",
+        "Indirect error": "&Z = f(X, Y),\\\\&\\delta Z = \\left|\\frac{\\partial Z}{\\partial Y}\\cdot \\Delta Y\\right| + \\left|\\frac{\\partial Z}{\\partial X}\\cdot \\Delta X\\right|"
     },
     "projects": {
         "new one": [

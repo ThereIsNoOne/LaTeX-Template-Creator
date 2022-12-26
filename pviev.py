@@ -12,8 +12,9 @@ from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
                            StringVar)
 
 from latex import TexFile
-from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Modes, Sections,
-                      get_percent, update_settings)
+from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Mode, Sections, get_percent,
+                      update_settings)
+from texfigures import LatexMath
 from toplevel import EnterMath
 
 
@@ -68,13 +69,13 @@ class ProjectWindow(CTk):
         """
         main_frame = CTkFrame(
             self,
-            width=M_WIDTH//2,
+            width=M_WIDTH//3 * 2,
             height=M_HEIGHT
         )
 
         self.entry = CTkTextbox(
             main_frame,
-            width=int(M_WIDTH // 2),
+            width=int(M_WIDTH//3 * 2),
             height=M_HEIGHT,
         )
         self.entry.place(x=0, y=0)
@@ -136,9 +137,12 @@ class ProjectWindow(CTk):
             height=M_HEIGHT
         )
 
+        variable = StringVar(self, self.tex_file.sections[0])
+
         combo_box = CTkOptionMenu(
             frame,
             values=self.tex_file.sections,
+            variable=variable,
             width=M_WIDTH//3 - M_WIDTH//30,
         )
         combo_box.place(x=M_WIDTH//60, y=25)
@@ -258,13 +262,24 @@ class ProjectWindow(CTk):
         print("add_table")
 
     def add_math(self) -> None:
-        top = EnterMath(Modes.DISPLAYMATH, self.insert_text, self)
+        EnterMath(Mode.DISPLAYMATH, self.insert_text, self)
 
     def add_equation(self) -> None:
-        print("add_equation")
+        EnterMath(Mode.EQUATION, self.insert_text, self)
 
-    def insert_text(self, math_object: str) -> None:
-        ...
+    def insert_text(self, math_object: str, flag: str) -> None:
+        self.save()
+        if flag == Mode.DISPLAYMATH:
+            self.tex_file.text[self.active_section] +=\
+                 LatexMath.write_displaymath(math_object)
+        elif flag == Mode.EQUATION:
+            self.tex_file.text[self.active_section] +=\
+                LatexMath.write_equation(math_object)
+        self.entry.textbox.delete(1.0, END)
+        self.entry.insert(
+            INSERT, self.tex_file.text[self.active_section]
+        )
+        self.save()
 
     def save_as(self) -> None:
         """Method responsible for 'save as...' button."""

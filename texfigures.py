@@ -28,20 +28,22 @@ class LatexMath:
     EQUATIONS: Dict[str, str] = SETTINGS["equations"]
     DISPLAYMATH: Dict[str, str] = SETTINGS["displaymath"]
 
-    def write_equation(self, equation: str) -> str:
+    @classmethod
+    def write_equation(cls, equation: str) -> str:
         equation_repr = str(
             "\n\\begin{equation}\n"
             + "\t\\label{mylabel}\n"
-            + f"\t{self.EQUATIONS[equation]}"
+            + f"\t{cls.EQUATIONS[equation]}\n"
             + "\\end{equation}"
         )
         return equation_repr
 
-    def write_displaymath(self, displaymath: str) -> str:
+    @classmethod
+    def write_displaymath(cls, displaymath: str) -> str:
         dspmath_repr = str(
-            "\n\\begin{displaymath]\\n"
+            "\n\\begin{displaymath]\n"
             + "\t\\begin{split}\n"
-            + f"\t\t {self.DISPLAYMATH[displaymath]}\n"
+            + f"\t\t {cls.DISPLAYMATH[displaymath]}\n"
             + "\t\\end{split}\n"
             + "\\end{displaymath}"
         )
