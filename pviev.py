@@ -6,6 +6,7 @@ from tkinter import Menu
 from tkinter import filedialog as fd
 from tkinter import messagebox as msg
 from typing import Callable
+import webbrowser
 
 from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
                            CTkLabel, CTkOptionMenu, CTkTextbox, CTkToplevel,
@@ -87,6 +88,7 @@ class ProjectWindow(CTk):
     def menu_setup(self) -> None:
         """Set up the menubar for project window."""
         menubar = Menu(self, background="#000000")
+        
         file = Menu(menubar, tearoff=0, bg="#4e4e4e", fg="#ffffff")
         file.add_command(label="New", command=self.new)
         file.add_command(label="Open", command=self.open)
@@ -106,7 +108,7 @@ class ProjectWindow(CTk):
             label="Add section", command=self.add_section
         )
 
-        submenu = Menu(add, tearoff=0)
+        submenu = Menu(add, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
         submenu.add_command(
             label="Add math",
             command=self.add_math
@@ -119,7 +121,12 @@ class ProjectWindow(CTk):
             label="Math",
             menu=submenu
         )
-        menubar.add_cascade(label="Edit", menu=add)
+        menubar.add_cascade(label="Add", menu=add)
+
+        help = Menu(menubar, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
+        help.add_command(label="Read me, online", command=self.web_help)
+        help.add_command(label="Instruction", command=self.instruction)
+        menubar.add_cascade(label="Help", menu=help)
 
         self.config(menu=menubar)
 
@@ -176,6 +183,14 @@ class ProjectWindow(CTk):
         )
 
         return frame
+
+    def instruction(self) -> None:
+        ...
+
+    def web_help(self) -> None:
+        webbrowser.open(
+            "https://github.com/ThereIsNoOne/Project/tree/CTK#readme"
+        )
 
     def save(self) -> None:
         """Save the file."""
