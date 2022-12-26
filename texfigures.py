@@ -4,6 +4,8 @@ math objects in TeX file.
 """
 from typing import Dict
 
+import pandas as pd
+
 from settings import SETTINGS
 
 
@@ -21,7 +23,12 @@ class LatexFigure:
 
 
 class LatexTable:
-    ...
+
+    def __init__(self, df: pd.DataFrame) -> None:
+        self.df = df
+
+    def tex_repr(self) -> str:
+        ...
 
 
 class LatexMath:

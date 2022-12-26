@@ -1,10 +1,14 @@
 """Author: Szymon Lasota"""
-from typing import Callable
+from tkinter import filedialog as fd
+from tkinter import messagebox as msg
+from typing import Callable, Dict, Union
 
+import pandas as pd
 from customtkinter import (CTkButton, CTkEntry, CTkLabel, CTkOptionMenu,
                            CTkTextbox, CTkToplevel, StringVar)
 
-from settings import SETTINGS, TOP_HEIGHT, TOP_WIDTH, Mode, update_settings
+from settings import (SETTINGS, TOP_HEIGHT, TOP_WIDTH, Mode, Separators,
+                      update_settings)
 from texfigures import LatexMath
 
 
@@ -81,3 +85,98 @@ class EnterMath(CTkToplevel):
         SETTINGS[self.mode][name] = new_equation
         update_settings(SETTINGS)
         self.destroy()
+
+
+class EnterTable(CTkToplevel):
+
+    def __init__(
+            self,
+            path: str,
+            add_tab: Callable[[pd.DataFrame], None],
+            *args,
+            **kwargs
+    ) -> None:
+        super().__init__(*args, **kwargs)
+        self.title = "Enter Table"
+        self.path = path
+        self.dfs = {}
+        self.add_table = add_tab
+        self.generate_gui()
+
+    def generate_gui(self) -> None:
+        label_sep = CTkLabel(self, text="Enter separator")
+        label_sep.grid(row=0, column=0)
+
+        label_del = CTkLabel(self, text="Enter delimiter")
+        label_del.grid(row=0, column=1)
+
+        var_decimal = StringVar(self, Separators.DECIMAL[0])
+
+        combo_decimal = CTkOptionMenu(
+            self,
+            values=Separators.DECIMAL,
+            variable=var_decimal
+        )
+        combo_decimal.grid(row=1, column=1)
+
+        var_separator = StringVar(self, Separators.SEPARATORS[0])
+
+        combo_separator = CTkOptionMenu(
+            self,
+            values=Separators.SEPARATORS,
+            variable=var_separator
+        )
+        combo_separator.grid(row=1, column=0)
+
+        read_file_button = CTkButton(
+            self,
+            text="Read file",
+            command=lambda: self.read_file(
+                combo_decimal.get(), combo_separator.get()
+            )
+        )
+        read_file_button.grid(row=1, column=2)
+
+        try:
+            sheets_var_text = list(self.dfs.keys())[-1]
+        except IndexError:
+            sheets_var_text = None
+        sheets_var = StringVar(self, sheets_var_text)
+
+        sheets_combo = CTkOptionMenu(
+            self,
+            values=list(self.dfs.keys()),
+            variable=sheets_var
+        )
+        sheets_combo.grid(row=2, column=0)
+
+        add_button = CTkButton(
+            self,
+            text="Add table",
+            command=lambda: self.add_table(
+                self.dfs[sheets_combo.get()]
+            )
+        )
+        add_button.grid(row=2, column=1)
+
+    def read_file(self, decimal: str, sep: str) -> None:
+        if self.path is None:
+            msg.showerror(
+                title="Wrong file path",
+                message="You did not enter path to file!"
+            )
+        if self.path.endswith(".csv"):
+            print(pd.read_csv(
+                    self.path,
+                    decimal=Separators.representation[decimal],
+                    sep=Separators.representation[sep]
+                ))
+            self.dfs = {
+                "sheet1": pd.read_csv(
+                    self.path,
+                    decimal=Separators.representation[decimal],
+                    sep=Separators.representation[sep]
+                )
+            }
+            self.generate_gui()
+            return

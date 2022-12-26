@@ -47,3 +47,14 @@ class Sections(str):
 class Mode(str):
     DISPLAYMATH = "displaymath"
     EQUATION = "equations"
+
+
+class Separators:
+    SEPARATORS = ["Coma", "Dot", "Tabulator", "Semicolon"]
+    DECIMAL = ["Dot", "Coma"]
+    representation = {
+        "Dot": ".",
+        "Coma": ",",
+        "Tabulator": "\t",
+        "Semicolon": ";"
+    }

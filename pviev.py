@@ -8,6 +8,7 @@ from tkinter import filedialog as fd
 from tkinter import messagebox as msg
 from typing import Callable
 
+import pandas as pd
 from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
                            CTkLabel, CTkOptionMenu, CTkTextbox, CTkToplevel,
                            StringVar)
@@ -16,7 +17,7 @@ from latex import TexFile
 from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Mode, Sections, get_percent,
                       update_settings)
 from texfigures import LatexMath
-from toplevel import EnterMath
+from toplevel import EnterMath, EnterTable
 
 
 class ProjectWindow(CTk):
@@ -88,7 +89,7 @@ class ProjectWindow(CTk):
     def menu_setup(self) -> None:
         """Set up the menubar for project window."""
         menubar = Menu(self, background="#000000")
-        
+
         file = Menu(menubar, tearoff=0, bg="#4e4e4e", fg="#ffffff")
         file.add_command(label="New", command=self.new)
         file.add_command(label="Open", command=self.open)
@@ -99,7 +100,7 @@ class ProjectWindow(CTk):
 
         add = Menu(menubar, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
         add.add_command(
-            label="Add table", command=self.add_table
+            label="Add table", command=self.get_table_file
         )
         add.add_command(
             label="Add figure", command=self.add_pic
@@ -175,7 +176,7 @@ class ProjectWindow(CTk):
         add_table_button = CTkButton(
             frame,
             text="Add table",
-            command=self.add_table
+            command=self.get_table_file
         )
         add_table_button.place(
             x=get_percent(M_WIDTH//3, 0.10),
@@ -217,6 +218,9 @@ class ProjectWindow(CTk):
         path = fd.askopenfilename(
             title="Open file",
         )
+
+        if path is None:
+            return
         if not (
             path.lower().endswith(".jpg")
             or path.lower().endswith(".pdf")
@@ -273,8 +277,19 @@ class ProjectWindow(CTk):
         top.destroy()
         self.create_gui()
 
-    def add_table(self) -> None:
-        print("add_table")
+    def get_table_file(self) -> None:
+        path = fd.askopenfilename(
+            title="Open file",
+            filetypes=[
+                ("Data files", ["*.csv", ".xlsx"]),
+            ]
+        )
+        if path is None:
+            return
+        EnterTable(path, self.add_table)
+
+    def add_table(self, df: pd.DataFrame) -> None:
+        ...
 
     def add_math(self) -> None:
         EnterMath(Mode.DISPLAYMATH, self.insert_text, self)
