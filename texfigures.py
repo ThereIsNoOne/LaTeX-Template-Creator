@@ -26,9 +26,38 @@ class LatexTable:
 
     def __init__(self, df: pd.DataFrame) -> None:
         self.df = df
+        self.rows_num = df.shape[0]
+        self.cols_num = df.shape[1]
 
     def tex_repr(self) -> str:
-        ...
+        repr = (
+            "\n\\begin{table}[h!]\n"
+            + "\\centering\n"
+            + "\\caption{}\n"
+            + "\\begin{tabular}{|" + "r|"*self.cols_num + "}\n"
+            + "\\hline"
+        )
+        repr += self.write_tab()
+        repr += (
+            "\n\\end{tabular}\n"
+            + "\\label{mylabel}\n"
+            + "\\caption*{Gdzie}\n"
+            + "\\end{table}"
+        )
+        return repr
+
+    def write_tab(self) -> str:
+        repr = ""
+        for col in self.df.columns:
+            repr += f"\\multicolumn{1}{{|l|}}{{{col}}}"
+        repr += "\\\\ \\hline\n"
+        for i in range(self.rows_num):
+            repr += "\\\\ \\hline\n"
+            for j in range(self.cols_num):
+                repr += f"{self.df.iloc[i, j]}"
+                if j != self.cols_num - 1:
+                    repr += "&"
+        return repr
 
 
 class LatexMath:

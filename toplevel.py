@@ -180,3 +180,15 @@ class EnterTable(CTkToplevel):
             }
             self.generate_gui()
             return
+        if not self.path.endswith("xlsx"):
+            msg.showerror(
+                title="Wrong file path",
+                message="File should be .csv or .xlsx type!"
+            )
+        self.dfs = pd.read_excel(
+            self.path,
+            decimal=Separators.representation[decimal],
+            sheet_name=None
+        )
+        print(self.dfs)
+        self.generate_gui()

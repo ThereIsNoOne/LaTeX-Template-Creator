@@ -16,7 +16,7 @@ from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
 from latex import TexFile
 from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Mode, Sections, get_percent,
                       update_settings)
-from texfigures import LatexMath
+from texfigures import LatexMath, LatexTable
 from toplevel import EnterMath, EnterTable
 
 
@@ -289,7 +289,12 @@ class ProjectWindow(CTk):
         EnterTable(path, self.add_table)
 
     def add_table(self, df: pd.DataFrame) -> None:
-        ...
+        tab = LatexTable(df)
+        self.tex_file.text[self.active_section] += tab.tex_repr()
+        self.entry.textbox.delete(1.0, END)
+        self.entry.insert(
+            INSERT, self.tex_file.text[self.active_section]
+        )
 
     def add_math(self) -> None:
         EnterMath(Mode.DISPLAYMATH, self.insert_text, self)
