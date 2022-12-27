@@ -5,7 +5,7 @@ from shutil import copyfile
 from typing import Any, Dict
 
 from settings import Sections, settings_path
-from texfigures import LatexFigure, LatexTable
+from texfigures import LatexFigure
 
 
 class TexFile:

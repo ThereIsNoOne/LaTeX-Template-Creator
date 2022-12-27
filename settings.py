@@ -36,7 +36,7 @@ def update_settings(settings):
 
 def get_percent(num: int, percent: float) -> int:
     """Get the percentage of value."""
-    return int(num * percent)
+    return int(num * percent/100)
 
 
 class Sections(str):

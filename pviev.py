@@ -161,8 +161,8 @@ class ProjectWindow(CTk):
             command=lambda: self.switch(combo_box.get())
         )
         button.place(
-            x=get_percent(M_WIDTH//3, 0.10),
-            y=get_percent(M_HEIGHT, 0.90)
+            x=get_percent(M_WIDTH//3, 10),
+            y=get_percent(M_HEIGHT, 90)
         )
         add_pic_button = CTkButton(
             frame,
@@ -170,8 +170,8 @@ class ProjectWindow(CTk):
             command=self.add_pic
         )
         add_pic_button.place(
-            x=get_percent(M_WIDTH//3, 0.10),
-            y=get_percent(M_HEIGHT, 0.85)
+            x=get_percent(M_WIDTH//3, 10),
+            y=get_percent(M_HEIGHT, 85)
         )
         add_table_button = CTkButton(
             frame,
@@ -179,8 +179,8 @@ class ProjectWindow(CTk):
             command=self.get_table_file
         )
         add_table_button.place(
-            x=get_percent(M_WIDTH//3, 0.10),
-            y=get_percent(M_HEIGHT, 0.80)
+            x=get_percent(M_WIDTH//3, 10),
+            y=get_percent(M_HEIGHT, 80)
         )
 
         return frame

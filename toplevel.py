@@ -1,7 +1,6 @@
 """Author: Szymon Lasota"""
-from tkinter import filedialog as fd
 from tkinter import messagebox as msg
-from typing import Callable, Dict, Union
+from typing import Callable
 
 import pandas as pd
 from customtkinter import (CTkButton, CTkEntry, CTkLabel, CTkOptionMenu,
@@ -192,3 +191,14 @@ class EnterTable(CTkToplevel):
         )
         print(self.dfs)
         self.generate_gui()
+
+
+class SettingsHandling(CTkToplevel):
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.title("Settings")
+        self.create_gui()
+
+    def create_gui(self) -> None:
+        ...
