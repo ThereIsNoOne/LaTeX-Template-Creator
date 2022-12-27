@@ -101,7 +101,7 @@ class TexFile:
                 continue
             if key == Sections.END:
                 continue
-            text += f"\\section{{{key}}}\n" + text_dict[key]
+            text += f"\n\\section{{{key}}}\n" + text_dict[key]
         text += text_dict[Sections.END]
         with open(path+"/main.tex", "wt") as file:
             file.write(text)

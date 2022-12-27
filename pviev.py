@@ -289,12 +289,14 @@ class ProjectWindow(CTk):
         EnterTable(path, self.add_table)
 
     def add_table(self, df: pd.DataFrame) -> None:
+        self.save()
         tab = LatexTable(df)
         self.tex_file.text[self.active_section] += tab.tex_repr()
         self.entry.textbox.delete(1.0, END)
         self.entry.insert(
             INSERT, self.tex_file.text[self.active_section]
         )
+        self.save()
 
     def add_math(self) -> None:
         EnterMath(Mode.DISPLAYMATH, self.insert_text, self)

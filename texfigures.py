@@ -58,8 +58,7 @@ class LatexTable:
                 repr += f"{self.df.iloc[i, j]}"
                 if j != self.cols_num - 1:
                     repr += "&"
-                else:
-                    repr += "\\hline"
+        repr += "\\\\ \\hline\n"
         return repr
 
 
