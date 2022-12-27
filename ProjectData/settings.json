@@ -1,8 +1,5 @@
 {
-    "current": [
-        "UserData/TestOne/",
-        "TestOne.json"
-    ],
+    "current": null,
     "window": {
         "width": 1040,
         "height": 720,
@@ -22,8 +19,8 @@
     },
     "projects": {
         "new one": [
-            "UserData/new one/",
-            "new one.json"
+            "UserData/TestOne/",
+            "TestOne.json"
         ]
     }
 }

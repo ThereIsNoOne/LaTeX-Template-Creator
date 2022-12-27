@@ -5,6 +5,7 @@ Settings file, contains:
 - All the constants,
 - Settings imported form ``.json`` file,
 """
+from enum import Enum, auto
 import json
 import os
 from json import load
@@ -58,3 +59,8 @@ class Separators:
         "Tabulator": "\t",
         "Semicolon": ";"
     }
+
+
+class Active(Enum):
+    WINDOW = auto()
+    MENU = auto()
