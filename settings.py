@@ -10,6 +10,7 @@ import json
 import os
 from json import load
 
+RUN = True
 settings_path = os.path.join("ProjectData")
 user_path = os.path.join("UserData")
 settings_path_json = os.path.join("ProjectData", "SETTINGS.json")

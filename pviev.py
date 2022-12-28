@@ -26,7 +26,7 @@ class ProjectWindow(CTk):
             self,
             path_project: str,
             title: str,
-            new_project: Callable[[], None],
+            new_project: Callable[[str, CTkToplevel], None],
             *args,
             **kwargs
     ) -> None:
@@ -36,14 +36,15 @@ class ProjectWindow(CTk):
             path_project (str): path to temporary project files.
             title (str): title of the project.
             new_project (Callable): Method creates new project window.
-            *args ():
-            **kwargs ():
+            *args
+            **kwargs
         """
         super().__init__(*args, **kwargs)
         self.entry = Sections.INTRO
         self.project_path = path_project
         self.new_project = new_project
         self.active_section = Sections.PREAMBLE
+        self.title("Project Window")
         self.geometry(f"{M_WIDTH}x{M_HEIGHT}")
         self.protocol("WM_DELETE_WINDOW", self.close)
         self.tex_file = TexFile(path=path_project, title=title)
@@ -210,7 +211,6 @@ class ProjectWindow(CTk):
     def new(self) -> None:
         """Create new project."""
         self.save()
-        self.new_project()
 
     def add_pic(self) -> None:
         """Add picture to current section."""

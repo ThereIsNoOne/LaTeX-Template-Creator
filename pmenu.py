@@ -1,22 +1,30 @@
 """Author Szymon Lasota"""
 import sys
+from typing import Callable
 
-from customtkinter import CTk, CTkButton, CTkFrame, CTkLabel
+from customtkinter import CTk, CTkButton, CTkFrame, CTkLabel, CTkToplevel
 
 from settings import HEIGHT, SETTINGS, WIDTH, get_percent
-from toplevel import SettingsHandling
+from toplevel import NewProject, SettingsHandling
 
 
 class ProjectMenu(CTk):
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(
+            self,
+            new_project: Callable[[str, CTkToplevel], None],
+            *args,
+            **kwargs
+    ) -> None:
         super().__init__(*args, **kwargs)
         self.geometry(f"{WIDTH}x{HEIGHT}")
+        self.title("Project menu")
         self.protocol("WM_DELETE_WINDOW", self.close)
         self.resizable(False, False)
         self.projects = SETTINGS["projects"]
         self.prj_keys = list(self.projects.keys())
         self.start = 0
+        self.new_project = new_project
         self.create_gui()
 
     def close(self) -> None:
@@ -35,11 +43,12 @@ class ProjectMenu(CTk):
         )
         frame.place(x=0, y=0)
 
-        project_button = CTkButton(
+        new_project_button = CTkButton(
             frame,
-            text="Projects"
+            text="New project",
+            command=self.handle_new_project
         )
-        project_button.place(x=10, y=10)
+        new_project_button.place(x=10, y=10)
 
         settings_button = CTkButton(
             frame,
@@ -61,6 +70,9 @@ class ProjectMenu(CTk):
             command=self.previous
         )
         previous_button.place(x=10, y=get_percent(HEIGHT, 19))
+
+    def handle_new_project(self) -> None:
+        NewProject(self.new_project)
 
     def create_main_frame(self) -> None:
         frame = CTkFrame(
@@ -95,7 +107,6 @@ class ProjectMenu(CTk):
             self.prj_keys[self.start]
         except IndexError:
             self.start = 0
-        print(self.start)
         self.create_main_frame()
 
     def previous(self) -> None:

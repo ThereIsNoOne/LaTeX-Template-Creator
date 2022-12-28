@@ -201,4 +201,33 @@ class SettingsHandling(CTkToplevel):
         self.create_gui()
 
     def create_gui(self) -> None:
-        ...
+        label = CTkLabel(self, text="Settings")
+        label.place(x=10, y=10)
+
+
+class NewProject(CTkToplevel):
+
+    def __init__(
+            self,
+            new_project: Callable[[str, CTkToplevel], None],
+            *args,
+            **kwargs
+    ) -> None:
+        super().__init__(*args, **kwargs)
+        self.title("New Project")
+        self.new_project = new_project
+        self.create_gui()
+
+    def create_gui(self) -> None:
+        label = CTkLabel(self, text="Insert project name")
+        label.place(x=10, y=10)
+
+        entry = CTkEntry(self)
+        entry.place(x=10, y=45)
+
+        add_button = CTkButton(
+            self,
+            text="Create Project",
+            command=lambda: self.new_project(entry.get(), self)
+        )
+        add_button.place(x=10, y=80)
