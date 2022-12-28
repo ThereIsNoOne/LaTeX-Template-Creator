@@ -78,7 +78,10 @@ class EnterMath(CTkToplevel):
         add_button.grid(row=6, column=2)
 
     def add_new(self, name: str, textbox: CTkTextbox) -> None:
-        new_equation = textbox.textbox.get(1.0, "end-1c")
+        try:
+            new_equation = textbox.textbox.get(1.0, "end-1c")
+        except AttributeError:
+            new_equation = textbox.get(1.0, "end-1c")
         if not new_equation or not name:
             return
         SETTINGS[self.mode][name] = new_equation
@@ -189,7 +192,6 @@ class EnterTable(CTkToplevel):
             decimal=Separators.representation[decimal],
             sheet_name=None
         )
-        print(self.dfs)
         self.generate_gui()
 
 

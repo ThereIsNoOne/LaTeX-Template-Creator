@@ -1,7 +1,7 @@
 {
     "current": [
-        "UserData/three/",
-        "three.json"
+        "UserData/py3.11/",
+        "py3.11.json"
     ],
     "window": {
         "width": 1040,
@@ -18,7 +18,8 @@
     "displaymath": {
         "Errors": "&\\Delta X = val\\%{\\m{rdg}} + val{\\m{dgt}} = val\\cdot val{\\m{ unit}} + 0,0003{\\m{ unit}} = val{\\m{ unit}},\\\\ \n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{val}{val}\\cdot 100\\% = val\\%.",
         "Indirect error": "&Z = f(X, Y),\\\\&\\delta Z = \\left|\\frac{\\partial Z}{\\partial Y}\\cdot \\Delta Y\\right| + \\left|\\frac{\\partial Z}{\\partial X}\\cdot \\Delta X\\right|",
-        "freq": "f_g = X {\\m{ Hz}}"
+        "freq": "f_g = X {\\m{ Hz}}",
+        "new": "new"
     },
     "projects": {
         "new one test": [
@@ -28,6 +29,10 @@
         "three": [
             "UserData/three/",
             "three.json"
+        ],
+        "py3.11": [
+            "UserData/py3.11/",
+            "py3.11.json"
         ]
     }
 }

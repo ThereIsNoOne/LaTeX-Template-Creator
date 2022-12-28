@@ -195,7 +195,10 @@ class ProjectWindow(CTk):
         del self.tex_file.text[self.active_section]
         self.tex_file.sections.remove(self.active_section)
         self.active_section = self.tex_file.sections[0]
-        self.entry.textbox.delete(1.0, END)
+        try:
+            self.entry.textbox.delete(1.0, END)
+        except AttributeError:
+            self.entry.delete(1.0, END)
         self.entry.insert(INSERT, self.tex_file.text[self.active_section])
         self.save()
         self.create_gui()
@@ -210,15 +213,22 @@ class ProjectWindow(CTk):
 
     def save(self) -> None:
         """Save the file."""
-        self.tex_file.text[self.active_section] =\
-            self.entry.textbox.get(1.0, "end-1c")
+        try:
+            self.tex_file.text[self.active_section] =\
+                self.entry.textbox.get(1.0, "end-1c")
+        except AttributeError:
+            self.tex_file.text[self.active_section] =\
+                self.entry.get(1.0, "end-1c")
         self.tex_file.save()
 
     def switch(self, section: str) -> None:
         """Switch between sections."""
         self.save()
         self.active_section = section
-        self.entry.textbox.delete(1.0, END)
+        try:
+            self.entry.textbox.delete(1.0, END)
+        except AttributeError:
+            self.entry.delete(1.0, END)
         self.entry.insert(INSERT, self.tex_file.text[section])
 
     def new(self) -> None:
@@ -252,7 +262,10 @@ class ProjectWindow(CTk):
                 break
             name += char
         self.tex_file.add_pic(path, name[::-1], self.active_section)
-        self.entry.textbox.delete(1.0, END)
+        try:
+            self.entry.textbox.delete(1.0, END)
+        except AttributeError:
+            self.entry.delete(1.0, END)
         self.entry.insert(
             INSERT, self.tex_file.text[self.active_section]
         )
@@ -306,7 +319,10 @@ class ProjectWindow(CTk):
         self.save()
         tab = LatexTable(df)
         self.tex_file.text[self.active_section] += tab.tex_repr()
-        self.entry.textbox.delete(1.0, END)
+        try:
+            self.entry.textbox.delete(1.0, END)
+        except AttributeError:
+            self.entry.delete(1.0, END)
         self.entry.insert(
             INSERT, self.tex_file.text[self.active_section]
         )
@@ -326,7 +342,10 @@ class ProjectWindow(CTk):
         elif flag == Mode.EQUATION:
             self.tex_file.text[self.active_section] +=\
                 LatexMath.write_equation(math_object)
-        self.entry.textbox.delete(1.0, END)
+        try:
+            self.entry.textbox.delete(1.0, END)
+        except AttributeError:
+            self.entry.delete(1.0, END)
         self.entry.insert(
             INSERT, self.tex_file.text[self.active_section]
         )
