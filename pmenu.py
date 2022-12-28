@@ -1,4 +1,6 @@
-"""Author Szymon Lasota"""
+"""Author Szymon Lasota
+This module is responsible for creating menu, that allows user to select
+and create projects."""
 import sys
 from typing import Callable
 from shutil import rmtree
@@ -10,6 +12,7 @@ from toplevel import NewProject
 
 
 class ProjectMenu(CTk):
+    """Class representing a project menu."""
 
     def __init__(
             self,
@@ -18,6 +21,14 @@ class ProjectMenu(CTk):
             *args,
             **kwargs
     ) -> None:
+        """Constructor of ProjectMenu class.
+
+        Args:
+            new_project (Callable[[str, CTkToplevel], None]): Function
+                responsible for creating new project.
+            open_project (Callable[[str], None]): function responsible
+                for opening project.
+        """
         super().__init__(*args, **kwargs)
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.title("Project menu")
@@ -31,15 +42,18 @@ class ProjectMenu(CTk):
         self.create_gui()
 
     def close(self) -> None:
+        """Close the app."""
         update_settings(SETTINGS)
         self.destroy()
         sys.exit()
 
     def create_gui(self) -> None:
+        """Create whole GUI"""
         self.create_leftframe()
         self.create_main_frame()
 
     def create_leftframe(self) -> None:
+        """Create left frame of the menu."""
         frame = CTkFrame(
             self,
             width=WIDTH//6,
@@ -69,9 +83,11 @@ class ProjectMenu(CTk):
         previous_button.place(x=10, y=get_percent(HEIGHT, 19))
 
     def handle_new_project(self) -> None:
+        """Handle the new project."""
         NewProject(self.new_project)
 
     def create_main_frame(self) -> None:
+        """Create main frame of the menu."""
         frame = CTkFrame(
             self,
             width=5*WIDTH//6,
@@ -108,6 +124,11 @@ class ProjectMenu(CTk):
             ).place(x=4*WIDTH//6, y=10+num*50)
 
     def rm_project(self, key: str) -> None:
+        """Remove project.
+
+        Args:
+            key (str): Project to be removed.
+        """
         rmtree(SETTINGS["projects"][key][0])
         del SETTINGS["projects"][key]
         update_settings(SETTINGS)
@@ -116,6 +137,7 @@ class ProjectMenu(CTk):
         self.create_main_frame()
 
     def next(self) -> None:
+        """Show nex page of the projects list."""
         self.start += 10
         try:
             self.prj_keys[self.start]
@@ -124,10 +146,12 @@ class ProjectMenu(CTk):
         self.create_main_frame()
 
     def previous(self) -> None:
+        """Shows previous page of the projects list."""
         self.start -= 10
         if self.start < 0:
             self.start = 0
         self.create_main_frame()
 
     def run(self) -> None:
+        """Run the menu."""
         self.mainloop()

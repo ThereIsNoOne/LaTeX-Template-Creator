@@ -10,26 +10,17 @@
     },
     "equations": {
         "Ohm Law": "I = \\frac{U}{R}",
-        "eq name": "New one eq"
+        "Second Newton's law": "F =m\\cdot a"
     },
     "displaymath": {
         "Errors": "&\\Delta X = val\\%{\\m{rdg}} + val{\\m{dgt}} = val\\cdot val{\\m{ unit}} + 0,0003{\\m{ unit}} = val{\\m{ unit}},\\\\ \n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{val}{val}\\cdot 100\\% = val\\%.",
         "Indirect error": "&Z = f(X, Y),\\\\&\\delta Z = \\left|\\frac{\\partial Z}{\\partial Y}\\cdot \\Delta Y\\right| + \\left|\\frac{\\partial Z}{\\partial X}\\cdot \\Delta X\\right|",
-        "freq": "f_g = X {\\m{ Hz}}",
-        "new": "new"
+        "freq": "f_g = X {\\m{ Hz}}"
     },
     "projects": {
-        "new one test": [
-            "UserData/new one test/",
-            "new one test.json"
-        ],
-        "three": [
-            "UserData/three/",
-            "three.json"
-        ],
-        "py3.11": [
-            "UserData/py3.11/",
-            "py3.11.json"
+        "MyFirstProjectButItIsNewName": [
+            "UserData/MyFirstProjectButItIsNewName/",
+            "MyFirstProjectButItIsNewName.json"
         ]
     }
 }

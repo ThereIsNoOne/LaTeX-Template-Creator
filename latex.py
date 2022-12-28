@@ -1,4 +1,11 @@
-"""Author Szymon Lasota"""
+"""Author Szymon Lasota
+This module contains TexFile class. It is responsible for maintaining
+main `.tex` file, including:
+
+* Section division,
+* Adding sections and pictures,
+* Exporting file (`.json` to `.tex`).
+"""
 import json
 import os
 from shutil import copyfile

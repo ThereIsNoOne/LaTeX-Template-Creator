@@ -1,4 +1,12 @@
-"""Author: Szymon Lasota"""
+"""Author: Szymon Lasota
+Module contains all Toplevel windows, for gathering information from
+user. There are several of them:
+
+* EnterMath is used for choosing equation to be written or creating
+new one, that can be saved for later,
+* EnterTable is used for importing excel or csv files, reading them and
+writing tables.
+* NewProject is used to create new project."""
 from tkinter import messagebox as msg
 from typing import Callable
 
@@ -12,6 +20,7 @@ from texfigures import LatexMath
 
 
 class EnterMath(CTkToplevel):
+    """Class for creating window allowing to enter equation."""
 
     def __init__(
             self,
@@ -19,6 +28,17 @@ class EnterMath(CTkToplevel):
             insert: Callable[[str, str], None],
             *args, **kwargs
     ) -> None:
+        """Constructor of EnterMath class.
+
+        Args:
+            mode (str): mode used to write math.
+            insert (Callable[[str, str], None]): function responsible
+                for inserting equations.
+
+
+        Raises:
+            ValueError: if mode is not valid.
+        """
         super().__init__(*args, **kwargs)
         self.mode = mode
         self.title = f"Enter {mode}"
@@ -32,6 +52,7 @@ class EnterMath(CTkToplevel):
         self.generate_gui()
 
     def generate_gui(self) -> None:
+        """Generate GUI to display."""
         label = CTkLabel(self, text="Chose what to insert:")
         label.grid(row=0, column=0, columnspan=3)
 
@@ -78,6 +99,12 @@ class EnterMath(CTkToplevel):
         add_button.grid(row=6, column=2)
 
     def add_new(self, name: str, textbox: CTkTextbox) -> None:
+        """Add new equation to app memeory.
+
+        Args:
+            name (str): name of equation.
+            textbox (CTkTextbox): textbox containing equation..
+        """
         try:
             new_equation = textbox.textbox.get(1.0, "end-1c")
         except AttributeError:
@@ -90,6 +117,7 @@ class EnterMath(CTkToplevel):
 
 
 class EnterTable(CTkToplevel):
+    """Class for creating window allowing to insert table."""
 
     def __init__(
             self,
@@ -98,6 +126,13 @@ class EnterTable(CTkToplevel):
             *args,
             **kwargs
     ) -> None:
+        """Constructor of EnterTable class.
+
+        Args:
+            path (str): path to file with data
+            add_tab (Callable[[pd.DataFrame], None]): function inserting
+                the table.
+        """
         super().__init__(*args, **kwargs)
         self.title = "Enter Table"
         self.path = path
@@ -106,10 +141,11 @@ class EnterTable(CTkToplevel):
         self.generate_gui()
 
     def generate_gui(self) -> None:
+        """Create GUI to display."""
         label_sep = CTkLabel(self, text="Enter separator")
         label_sep.grid(row=0, column=0)
 
-        label_del = CTkLabel(self, text="Enter delimiter")
+        label_del = CTkLabel(self, text="Enter decimal separator")
         label_del.grid(row=0, column=1)
 
         var_decimal = StringVar(self, Separators.DECIMAL[0])
@@ -162,17 +198,18 @@ class EnterTable(CTkToplevel):
         add_button.grid(row=2, column=1)
 
     def read_file(self, decimal: str, sep: str) -> None:
+        """Read the file.
+
+        Args:
+            decimal (str): Character to separating decimal values.
+            sep (str): Character to separating columns.
+        """
         if self.path is None:
             msg.showerror(
                 title="Wrong file path",
                 message="You did not enter path to file!"
             )
         if self.path.endswith(".csv"):
-            print(pd.read_csv(
-                    self.path,
-                    decimal=Separators.representation[decimal],
-                    sep=Separators.representation[sep]
-                ))
             self.dfs = {
                 "sheet1": pd.read_csv(
                     self.path,
@@ -196,6 +233,7 @@ class EnterTable(CTkToplevel):
 
 
 class NewProject(CTkToplevel):
+    """Class representing New Project window."""
 
     def __init__(
             self,
@@ -203,12 +241,19 @@ class NewProject(CTkToplevel):
             *args,
             **kwargs
     ) -> None:
+        """Constructor of NewProject class.
+
+        Args:
+            new_project (Callable[[str, CTkToplevel], None]): function
+                to create a new project.
+        """
         super().__init__(*args, **kwargs)
         self.title("New Project")
         self.new_project = new_project
         self.create_gui()
 
     def create_gui(self) -> None:
+        """Create GUI."""
         label = CTkLabel(self, text="Insert project name")
         label.place(x=10, y=10)
 

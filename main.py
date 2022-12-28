@@ -1,11 +1,15 @@
-"""Author Szymon Lasota"""
+"""Author Szymon Lasota
+This module is responsible for creating both windows (menu and project
+view) and switching between them, also provides function to adding new
+projects.
+"""
 import os
 
 from customtkinter import CTkToplevel
 
 from pmenu import ProjectMenu
 from pviev import ProjectWindow
-from settings import SETTINGS, Active, RUN, update_settings
+from settings import RUN, SETTINGS, Active, update_settings
 
 
 class MainGUI:
@@ -25,6 +29,12 @@ class MainGUI:
             self.window = ProjectMenu(self.new_project, self.open)
 
     def new_project(self, path: str, top: CTkToplevel) -> None:
+        """Create a new project.
+
+        Args:
+            path (str): name of the new project.
+            top (CTkToplevel): Toplevel window to destroy.
+        """
         if not path:
             return
 
@@ -41,10 +51,16 @@ class MainGUI:
         main()
 
     def reboot(self) -> None:
+        """Reboot all project"""
         self.window.destroy()
         main()
 
     def open(self, title: str) -> None:
+        """Open given project.
+
+        Args:
+            title (str): Project title to be opened.
+        """
         SETTINGS["current"] = [f"UserData/{title}/", f"{title}.json"]
         update_settings(SETTINGS)
         self.window.destroy()

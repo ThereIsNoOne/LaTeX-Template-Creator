@@ -10,8 +10,14 @@ from settings import SETTINGS
 
 
 class LatexFigure:
+    """Class representing a Latex figure."""
 
     def __init__(self, name: str) -> None:
+        """Constructor of LatexFigure class.
+
+        Args:
+            name (str): Name of the Latex figure.
+        """
         self.figure = str(
                 "\n\\begin{figure}[h!]\n"
                 + "\t\\centering\n"
@@ -23,13 +29,21 @@ class LatexFigure:
 
 
 class LatexTable:
+    """Class representing a Latex table."""
 
     def __init__(self, df: pd.DataFrame) -> None:
+        """Constructor of LatexTable class.
+
+        Args:
+            df (pd.DataFrame): Dataframe to be transformed into latex
+                table.
+        """
         self.df = df
         self.rows_num = df.shape[0]
         self.cols_num = df.shape[1]
 
     def tex_repr(self) -> str:
+        """Generate TeX representation of table."""
         repr = (
             "\n\\begin{table}[h!]\n"
             + "\\centering\n"
@@ -47,6 +61,7 @@ class LatexTable:
         return repr
 
     def write_tab(self) -> str:
+        """Writes the data frame to the table."""
         repr = ""
         for col in self.df.columns:
             repr += f"\\multicolumn{1}{{|l|}}{{{col}}}"
@@ -63,11 +78,20 @@ class LatexTable:
 
 
 class LatexMath:
+    """Class representing a Latex math object."""
     EQUATIONS: Dict[str, str] = SETTINGS["equations"]
     DISPLAYMATH: Dict[str, str] = SETTINGS["displaymath"]
 
     @classmethod
     def write_equation(cls, equation: str) -> str:
+        """Write equation to tex file.
+
+        Args:
+            equation (str): equation to be written.
+
+        Returns:
+            str: tex equation.
+        """
         equation_repr = str(
             "\n\\begin{equation}\n"
             + "\t\\label{mylabel}\n"
@@ -78,6 +102,14 @@ class LatexMath:
 
     @classmethod
     def write_displaymath(cls, displaymath: str) -> str:
+        """write multiline math to tex file.
+
+        Args:
+            displaymath (str): multiline math to be written.
+
+        Returns:
+            str: tex multiline math.
+        """
         dspmath_repr = str(
             "\n\\begin{displaymath}\n"
             + "\t\\begin{split}\n"

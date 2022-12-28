@@ -1,7 +1,13 @@
-"""Author Szymon Lasota"""
+"""Author Szymon Lasota
+This module contains the project window class, which is main window. It
+allows user to write and edit LaTeX-style documents easily. It provides
+option to add figures in `.jpeg`, `.pdf` and `.png` files, import tables
+directly from `.csv` or `.xlsx` files. Users can provide it with their
+own math equations (save them for later and then reuse it). There is
+easy access to all sections including the preamble which contains
+predefined packages."""
 import os
 import sys
-import webbrowser
 from shutil import copyfile
 from tkinter import Menu
 from tkinter import filedialog as fd
@@ -131,7 +137,6 @@ class ProjectWindow(CTk):
         menubar.add_cascade(label="Edit", menu=edit)
 
         help = Menu(menubar, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
-        help.add_command(label="Read me, online", command=self.web_help)
         help.add_command(label="Instruction", command=self.instruction)
         menubar.add_cascade(label="Help", menu=help)
 
@@ -192,6 +197,7 @@ class ProjectWindow(CTk):
         return frame
 
     def remove_section(self) -> None:
+        """Remove section from the project."""
         del self.tex_file.text[self.active_section]
         self.tex_file.sections.remove(self.active_section)
         self.active_section = self.tex_file.sections[0]
@@ -205,11 +211,6 @@ class ProjectWindow(CTk):
 
     def instruction(self) -> None:
         ...
-
-    def web_help(self) -> None:
-        webbrowser.open(
-            "https://github.com/ThereIsNoOne/Project/blob/master/README.md"
-        )
 
     def save(self) -> None:
         """Save the file."""
@@ -274,7 +275,6 @@ class ProjectWindow(CTk):
     def add_section(self) -> None:
         """Get information about a new section of the project."""
         top = CTkToplevel(self)
-        # top.geometry(f"{TOP_WIDTH}x{TOP_HEIGHT}")
         top.title("Add section")
         label = CTkLabel(top, text="Insert section name:")
         entry = CTkEntry(top)
@@ -316,6 +316,11 @@ class ProjectWindow(CTk):
         EnterTable(path, self.add_table)
 
     def add_table(self, df: pd.DataFrame) -> None:
+        """Add the table to the project.
+
+        Args:
+            df (pd.DataFrame): Dataframe to be converted into tex table.
+        """
         self.save()
         tab = LatexTable(df)
         self.tex_file.text[self.active_section] += tab.tex_repr()
@@ -329,12 +334,15 @@ class ProjectWindow(CTk):
         self.save()
 
     def add_math(self) -> None:
+        """Add math to project."""
         EnterMath(Mode.DISPLAYMATH, self.insert_text, self)
 
     def add_equation(self) -> None:
+        """Add equation to project"""
         EnterMath(Mode.EQUATION, self.insert_text, self)
 
     def insert_text(self, math_object: str, flag: str) -> None:
+        """Insert math or equation to project."""
         self.save()
         if flag == Mode.DISPLAYMATH:
             self.tex_file.text[self.active_section] +=\
@@ -354,7 +362,6 @@ class ProjectWindow(CTk):
     def save_as(self) -> None:
         """Method responsible for 'save as...' button."""
         top = CTkToplevel(self)
-        # top.geometry(f"{TOP_WIDTH}x{TOP_HEIGHT}")
         top.title("New name")
         label = CTkLabel(top, text="Insert new project name:")
         entry = CTkEntry(top)
@@ -435,10 +442,10 @@ class ProjectWindow(CTk):
                 copyfile(main_path + file, path + "/" + file.split("/")[-1])
 
     def close_project(self) -> None:
+        """Close project and open main menu."""
         SETTINGS["current"] = None
         update_settings(SETTINGS)
         self.reboot()
-        print("Open")
 
     def run(self) -> None:
         """Run the project window."""

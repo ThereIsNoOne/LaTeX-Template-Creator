@@ -41,17 +41,20 @@ def get_percent(num: int, percent: float) -> int:
 
 
 class Sections(str):
+    """Enum class for sections."""
     PREAMBLE = "Preamble"
     INTRO = "Introduction"
     END = "End"
 
 
 class Mode(str):
+    """Enum class for math."""
     DISPLAYMATH = "displaymath"
     EQUATION = "equations"
 
 
 class Separators:
+    """Enum class for reading data files."""
     SEPARATORS = ["Coma", "Dot", "Tabulator", "Semicolon"]
     DECIMAL = ["Dot", "Coma"]
     representation = {
@@ -63,5 +66,6 @@ class Separators:
 
 
 class Active(Enum):
+    """Enum class for active window identification."""
     WINDOW = auto()
     MENU = auto()
