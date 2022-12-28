@@ -193,18 +193,6 @@ class EnterTable(CTkToplevel):
         self.generate_gui()
 
 
-class SettingsHandling(CTkToplevel):
-
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.title("Settings")
-        self.create_gui()
-
-    def create_gui(self) -> None:
-        label = CTkLabel(self, text="Settings")
-        label.place(x=10, y=10)
-
-
 class NewProject(CTkToplevel):
 
     def __init__(

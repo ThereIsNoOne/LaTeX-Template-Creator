@@ -1,7 +1,7 @@
 {
     "current": [
-        "UserData/new one test/",
-        "new one test.json"
+        "UserData/three/",
+        "three.json"
     ],
     "window": {
         "width": 1040,
@@ -21,61 +21,13 @@
         "freq": "f_g = X {\\m{ Hz}}"
     },
     "projects": {
-        "new one": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one2": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one3": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one4": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one5": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one6": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one7": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one8": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one9": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one10": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one11": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "new one12": [
-            "UserData/TestOne/",
-            "TestOne.json"
-        ],
-        "test": [
-            "UserData/test/",
-            "test.json"
-        ],
         "new one test": [
             "UserData/new one test/",
             "new one test.json"
+        ],
+        "three": [
+            "UserData/three/",
+            "three.json"
         ]
     }
 }

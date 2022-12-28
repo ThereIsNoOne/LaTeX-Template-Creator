@@ -27,9 +27,10 @@ class MainGUI:
     def new_project(self, path: str, top: CTkToplevel) -> None:
         if not path:
             return
-        print("Ok")
+
         top.destroy()
         self.window.destroy()
+
         try:
             os.mkdir(f"UserData/{path}/")
         except FileExistsError:   # Control flow statement, I am fully

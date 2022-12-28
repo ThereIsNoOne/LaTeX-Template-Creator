@@ -1,11 +1,12 @@
 """Author Szymon Lasota"""
 import sys
 from typing import Callable
+from shutil import rmtree
 
 from customtkinter import CTk, CTkButton, CTkFrame, CTkLabel, CTkToplevel
 
 from settings import HEIGHT, SETTINGS, WIDTH, get_percent, update_settings
-from toplevel import NewProject, SettingsHandling
+from toplevel import NewProject
 
 
 class ProjectMenu(CTk):
@@ -53,13 +54,6 @@ class ProjectMenu(CTk):
         )
         new_project_button.place(x=10, y=10)
 
-        settings_button = CTkButton(
-            frame,
-            text="Settings",
-            command=self.open_settings
-        )
-        settings_button.place(x=10, y=get_percent(HEIGHT, 7))
-
         next_button = CTkButton(
             frame,
             text="Next page",
@@ -96,6 +90,15 @@ class ProjectMenu(CTk):
             CTkLabel(frame, text=key, height=50).place(
                 x=10, y=10+num*50
             )
+
+            CTkButton(
+                frame,
+                text="Remove",
+                command=lambda num=i: self.rm_project(
+                    self.prj_keys[num]
+                )
+            ).place(x=3*WIDTH//6, y=10+num*50)
+
             CTkButton(
                 frame,
                 text="Open",
@@ -103,6 +106,14 @@ class ProjectMenu(CTk):
                     self.prj_keys[num]
                 )
             ).place(x=4*WIDTH//6, y=10+num*50)
+
+    def rm_project(self, key: str) -> None:
+        rmtree(SETTINGS["projects"][key][0])
+        del SETTINGS["projects"][key]
+        update_settings(SETTINGS)
+        self.projects = SETTINGS["projects"]
+        self.prj_keys = list(self.projects.keys())
+        self.create_main_frame()
 
     def next(self) -> None:
         self.start += 10
@@ -117,9 +128,6 @@ class ProjectMenu(CTk):
         if self.start < 0:
             self.start = 0
         self.create_main_frame()
-
-    def open_settings(self) -> None:
-        SettingsHandling()
 
     def run(self) -> None:
         self.mainloop()

@@ -101,18 +101,21 @@ class ProjectWindow(CTk):
         file.add_command(label="Export", command=self.export)
         menubar.add_cascade(label="File", menu=file)
 
-        add = Menu(menubar, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
-        add.add_command(
+        edit = Menu(menubar, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
+        edit.add_command(
             label="Add table", command=self.get_table_file
         )
-        add.add_command(
+        edit.add_command(
             label="Add figure", command=self.add_pic
         )
-        add.add_command(
+        edit.add_command(
             label="Add section", command=self.add_section
         )
+        edit.add_command(
+            label="Remove current section", command=self.remove_section
+        )
 
-        submenu = Menu(add, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
+        submenu = Menu(edit, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
         submenu.add_command(
             label="Add math",
             command=self.add_math
@@ -121,11 +124,11 @@ class ProjectWindow(CTk):
             label="Add equation",
             command=self.add_equation
         )
-        add.add_cascade(
+        edit.add_cascade(
             label="Math",
             menu=submenu
         )
-        menubar.add_cascade(label="Add", menu=add)
+        menubar.add_cascade(label="Edit", menu=edit)
 
         help = Menu(menubar, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
         help.add_command(label="Read me, online", command=self.web_help)
@@ -188,6 +191,15 @@ class ProjectWindow(CTk):
 
         return frame
 
+    def remove_section(self) -> None:
+        del self.tex_file.text[self.active_section]
+        self.tex_file.sections.remove(self.active_section)
+        self.active_section = self.tex_file.sections[0]
+        self.entry.textbox.delete(1.0, END)
+        self.entry.insert(INSERT, self.tex_file.text[self.active_section])
+        self.save()
+        self.create_gui()
+
     def instruction(self) -> None:
         ...
 
@@ -208,7 +220,6 @@ class ProjectWindow(CTk):
         self.active_section = section
         self.entry.textbox.delete(1.0, END)
         self.entry.insert(INSERT, self.tex_file.text[section])
-        print(f"switch {section}")
 
     def new(self) -> None:
         """Create new project."""
@@ -354,6 +365,13 @@ class ProjectWindow(CTk):
             self.project_path[:self.project_path.find("/")+1] + new_name
             + "/"
         )
+        SETTINGS["projects"][new_name] = []
+        SETTINGS["projects"][new_name].extend([
+            self.project_path[:self.project_path.find("/") + 1] + new_name
+            + "/",
+            new_name + ".json"
+        ])
+        del SETTINGS["projects"][self.tex_file.title[:-5]]
         self.tex_file.title = new_name + ".json"
         self.tex_file.folder_path = (
                 self.project_path[:self.project_path.find("/") + 1] + new_name
