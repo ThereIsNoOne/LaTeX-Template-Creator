@@ -1,5 +1,8 @@
 {
-    "current": null,
+    "current": [
+        "UserData/MyFirstProjectButItIsNewName/",
+        "MyFirstProjectButItIsNewName.json"
+    ],
     "window": {
         "width": 1040,
         "height": 720,

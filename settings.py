@@ -27,6 +27,7 @@ TOP_WIDTH, TOP_HEIGHT = (
     SETTINGS["window"]["top_width"],
     SETTINGS["window"]["top_height"]
 )
+help_file = os.path.join("ProjectData", "help.pdf")
 
 
 def update_settings(settings):

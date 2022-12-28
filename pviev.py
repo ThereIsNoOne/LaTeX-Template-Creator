@@ -7,6 +7,8 @@ own math equations (save them for later and then reuse it). There is
 easy access to all sections including the preamble which contains
 predefined packages."""
 import os
+import platform
+import subprocess
 import sys
 from shutil import copyfile
 from tkinter import Menu
@@ -21,7 +23,7 @@ from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
 
 from latex import TexFile
 from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Mode, Sections, get_percent,
-                      update_settings)
+                      help_file, update_settings)
 from texfigures import LatexMath, LatexTable
 from toplevel import EnterMath, EnterTable, NewProject
 
@@ -210,7 +212,13 @@ class ProjectWindow(CTk):
         self.create_gui()
 
     def instruction(self) -> None:
-        ...
+        print(help_file)
+        if platform.system() == 'Darwin':
+            subprocess.call(('open', help_file))
+        elif platform.system() == 'Windows':
+            os.startfile(help_file)
+        else:
+            subprocess.call(('xdg-open', help_file))
 
     def save(self) -> None:
         """Save the file."""
