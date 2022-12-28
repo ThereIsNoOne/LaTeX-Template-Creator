@@ -1,5 +1,8 @@
 {
-    "current": null,
+    "current": [
+        "UserData/new one test/",
+        "new one test.json"
+    ],
     "window": {
         "width": 1040,
         "height": 720,
@@ -65,6 +68,14 @@
         "new one12": [
             "UserData/TestOne/",
             "TestOne.json"
+        ],
+        "test": [
+            "UserData/test/",
+            "test.json"
+        ],
+        "new one test": [
+            "UserData/new one test/",
+            "new one test.json"
         ]
     }
 }

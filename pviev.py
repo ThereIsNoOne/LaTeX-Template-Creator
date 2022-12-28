@@ -17,7 +17,7 @@ from latex import TexFile
 from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Mode, Sections, get_percent,
                       update_settings)
 from texfigures import LatexMath, LatexTable
-from toplevel import EnterMath, EnterTable
+from toplevel import EnterMath, EnterTable, NewProject
 
 
 class ProjectWindow(CTk):
@@ -27,6 +27,7 @@ class ProjectWindow(CTk):
             path_project: str,
             title: str,
             new_project: Callable[[str, CTkToplevel], None],
+            reboot: Callable[[], None],
             *args,
             **kwargs
     ) -> None:
@@ -43,6 +44,7 @@ class ProjectWindow(CTk):
         self.entry = Sections.INTRO
         self.project_path = path_project
         self.new_project = new_project
+        self.reboot = reboot
         self.active_section = Sections.PREAMBLE
         self.title("Project Window")
         self.geometry(f"{M_WIDTH}x{M_HEIGHT}")
@@ -93,7 +95,7 @@ class ProjectWindow(CTk):
 
         file = Menu(menubar, tearoff=0, bg="#4e4e4e", fg="#ffffff")
         file.add_command(label="New", command=self.new)
-        file.add_command(label="Open", command=self.open)
+        file.add_command(label="Close project", command=self.close_project)
         file.add_command(label="Save", command=self.save)
         file.add_command(label="Save as...", command=self.save_as)
         file.add_command(label="Export", command=self.export)
@@ -211,6 +213,7 @@ class ProjectWindow(CTk):
     def new(self) -> None:
         """Create new project."""
         self.save()
+        NewProject(self.new_project)
 
     def add_pic(self) -> None:
         """Add picture to current section."""
@@ -394,7 +397,10 @@ class ProjectWindow(CTk):
                     continue
                 copyfile(main_path + file, path + "/" + file.split("/")[-1])
 
-    def open(self) -> None:
+    def close_project(self) -> None:
+        SETTINGS["current"] = None
+        update_settings(SETTINGS)
+        self.reboot()
         print("Open")
 
     def run(self) -> None:

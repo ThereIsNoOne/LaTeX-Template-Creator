@@ -4,7 +4,7 @@ from typing import Callable
 
 from customtkinter import CTk, CTkButton, CTkFrame, CTkLabel, CTkToplevel
 
-from settings import HEIGHT, SETTINGS, WIDTH, get_percent
+from settings import HEIGHT, SETTINGS, WIDTH, get_percent, update_settings
 from toplevel import NewProject, SettingsHandling
 
 
@@ -13,6 +13,7 @@ class ProjectMenu(CTk):
     def __init__(
             self,
             new_project: Callable[[str, CTkToplevel], None],
+            open_project: Callable[[str], None],
             *args,
             **kwargs
     ) -> None:
@@ -25,9 +26,11 @@ class ProjectMenu(CTk):
         self.prj_keys = list(self.projects.keys())
         self.start = 0
         self.new_project = new_project
+        self.open_project = open_project
         self.create_gui()
 
     def close(self) -> None:
+        update_settings(SETTINGS)
         self.destroy()
         sys.exit()
 
@@ -114,9 +117,6 @@ class ProjectMenu(CTk):
         if self.start < 0:
             self.start = 0
         self.create_main_frame()
-
-    def open_project(self, key) -> None:
-        print(key)
 
     def open_settings(self) -> None:
         SettingsHandling()

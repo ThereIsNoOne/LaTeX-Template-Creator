@@ -4,7 +4,7 @@ import os
 from shutil import copyfile
 from typing import Any, Dict
 
-from settings import Sections, settings_path
+from settings import SETTINGS, Sections, settings_path, update_settings
 from texfigures import LatexFigure
 
 
@@ -39,6 +39,7 @@ class TexFile:
             os.mkdir(self.folder_path)
             with open(self.path, "wt") as file:
                 json.dump(self.text, file, indent=4)
+        update_settings(SETTINGS)
 
     def add_section(self, section: str) -> None:
         """Add section to TeX file.
@@ -48,9 +49,6 @@ class TexFile:
         """
         self.sections.append(section)
         self.text[section] = ""
-
-    def add_table(self) -> None:
-        print("Adding")
 
     def add_pic(self, pic: str, name: str, section: str) -> None:
         """Add picture to TeX file.

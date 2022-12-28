@@ -5,7 +5,7 @@ from customtkinter import CTkToplevel
 
 from pmenu import ProjectMenu
 from pviev import ProjectWindow
-from settings import SETTINGS, Active, RUN
+from settings import SETTINGS, Active, RUN, update_settings
 
 
 class MainGUI:
@@ -17,11 +17,12 @@ class MainGUI:
             self.window = ProjectWindow(
                 SETTINGS["current"][0],
                 SETTINGS["current"][1],
-                self.new_project
+                self.new_project,
+                self.reboot
             )
         else:
             self.active = Active.MENU
-            self.window = ProjectMenu(self.new_project)
+            self.window = ProjectMenu(self.new_project, self.open)
 
     def new_project(self, path: str, top: CTkToplevel) -> None:
         if not path:
@@ -35,6 +36,17 @@ class MainGUI:
             pass      # aware it is consider as wrong practice
         SETTINGS["current"] = [f"UserData/{path}/", f"{path}.json"]
         SETTINGS["projects"][path] = [f"UserData/{path}/", f"{path}.json"]
+        update_settings(SETTINGS)
+        main()
+
+    def reboot(self) -> None:
+        self.window.destroy()
+        main()
+
+    def open(self, title: str) -> None:
+        SETTINGS["current"] = [f"UserData/{title}/", f"{title}.json"]
+        update_settings(SETTINGS)
+        self.window.destroy()
         main()
 
     def run(self) -> None:
