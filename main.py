@@ -4,6 +4,7 @@ view) and switching between them, also provides function to adding new
 projects.
 """
 import os
+from tkinter import messagebox as msg
 
 from customtkinter import CTkToplevel
 
@@ -36,6 +37,13 @@ class MainGUI:
             top (CTkToplevel): Toplevel window to destroy.
         """
         if not path:
+            return
+
+        if path in SETTINGS["projects"].keys():
+            msg.showerror(
+                title="Fatal Error",
+                message="New project name already exists."
+            )
             return
 
         top.destroy()

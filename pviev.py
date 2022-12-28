@@ -382,6 +382,12 @@ class ProjectWindow(CTk):
                 message="New project name must not be empty."
             )
             return
+        if new_name in SETTINGS["projects"].keys():
+            msg.showerror(
+                title="Fatal Error",
+                message="New project name already exists."
+            )
+            return
         os.rename(
             self.project_path + f"/{self.tex_file.title}",
             self.project_path + new_name + ".json"
