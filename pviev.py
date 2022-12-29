@@ -138,9 +138,9 @@ class ProjectWindow(CTk):
         )
         menubar.add_cascade(label="Edit", menu=edit)
 
-        help = Menu(menubar, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
-        help.add_command(label="Instruction", command=self.instruction)
-        menubar.add_cascade(label="Help", menu=help)
+        help_ = Menu(menubar, tearoff=0,  bg="#4e4e4e", fg="#ffffff")
+        help_.add_command(label="Instruction", command=self.instruction)
+        menubar.add_cascade(label="Help", menu=help_)
 
         self.config(menu=menubar)
 
@@ -212,7 +212,7 @@ class ProjectWindow(CTk):
         self.create_gui()
 
     def instruction(self) -> None:
-        print(help_file)
+        """Shows instruction."""
         if platform.system() == 'Darwin':
             subprocess.call(('open', help_file))
         elif platform.system() == 'Windows':

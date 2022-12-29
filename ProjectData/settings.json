@@ -1,7 +1,7 @@
 {
     "current": [
-        "UserData/MyFirstProjectButItIsNewName/",
-        "MyFirstProjectButItIsNewName.json"
+        "UserData/FirstProject/",
+        "FirstProject.json"
     ],
     "window": {
         "width": 1040,
@@ -21,9 +21,9 @@
         "freq": "f_g = X {\\m{ Hz}}"
     },
     "projects": {
-        "MyFirstProjectButItIsNewName": [
-            "UserData/MyFirstProjectButItIsNewName/",
-            "MyFirstProjectButItIsNewName.json"
+        "FirstProject": [
+            "UserData/FirstProject/",
+            "FirstProject.json"
         ]
     }
 }
