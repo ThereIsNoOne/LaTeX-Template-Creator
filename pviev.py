@@ -211,7 +211,8 @@ class ProjectWindow(CTk):
         self.save()
         self.create_gui()
 
-    def instruction(self) -> None:
+    @staticmethod
+    def instruction() -> None:
         """Shows instruction."""
         if platform.system() == 'Darwin':
             subprocess.call(('open', help_file))
@@ -307,6 +308,20 @@ class ProjectWindow(CTk):
             top (CTkToplevel): Window responsible for getting inf of
                 section.
         """
+        if not section:
+            msg.showerror(
+                title="No section name",
+                message="You must enter a section name."
+
+            )
+            return
+        if section in self.tex_file.sections:
+            msg.showerror(
+                title="Name error",
+                message="Name already used."
+
+            )
+            return
         self.tex_file.add_section(section)
         self.save()
         top.destroy()

@@ -111,6 +111,12 @@ class EnterMath(CTkToplevel):
             new_equation = textbox.get(1.0, "end-1c")
         if not new_equation or not name:
             return
+        if name in self.options:
+            msg.showerror(
+                title="Fatal Error",
+                message="Equation already exists."
+            )
+            return
         SETTINGS[self.mode][name] = new_equation
         update_settings(SETTINGS)
         self.destroy()
@@ -210,16 +216,26 @@ class EnterTable(CTkToplevel):
                 message="You did not enter path to file!"
             )
         if self.path.endswith(".csv"):
-            self.dfs = {
-                "sheet1": pd.read_csv(
-                    self.path,
-                    decimal=Separators.representation[decimal],
-                    sep=Separators.representation[sep]
+            try:
+                self.dfs = {
+                    "sheet1": pd.read_csv(
+                        self.path,
+                        decimal=Separators.representation[decimal],
+                        sep=Separators.representation[sep]
+                    )
+                }
+            except pd.errors.ParserError:
+
+                msg.showerror(
+                    title="Fatal error",
+                    message=(
+                        "Error occurred while reading file, make sure"
+                        + " you pass correct separators and decimal separator"
+                    )
                 )
-            }
             self.generate_gui()
             return
-        if not self.path.endswith("xlsx"):
+        if not self.path.endswith(".xlsx"):
             msg.showerror(
                 title="Wrong file path",
                 message="File should be .csv or .xlsx type!"
