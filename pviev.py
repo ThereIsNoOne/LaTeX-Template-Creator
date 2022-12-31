@@ -5,7 +5,8 @@ option to add figures in `.jpeg`, `.pdf` and `.png` files, import tables
 directly from `.csv` or `.xlsx` files. Users can provide it with their
 own math equations (save them for later and then reuse it). There is
 easy access to all sections including the preamble which contains
-predefined packages."""
+predefined packages.
+"""
 import os
 import platform
 import subprocess
@@ -25,7 +26,7 @@ from latex import TexFile
 from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Mode, Sections, get_percent,
                       help_file, update_settings)
 from texfigures import LatexMath, LatexTable
-from toplevel import EnterMath, EnterTable, NewProject
+from toplevel import EnterMath, EnterTable, NewProject, SettingsTop
 
 
 class ProjectWindow(CTk):
@@ -104,6 +105,7 @@ class ProjectWindow(CTk):
         file = Menu(menubar, tearoff=0, bg="#4e4e4e", fg="#ffffff")
         file.add_command(label="New", command=self.new)
         file.add_command(label="Close project", command=self.close_project)
+        file.add_command(label="Settings", command=self.settings)
         file.add_command(label="Save", command=self.save)
         file.add_command(label="Save as...", command=self.save_as)
         file.add_command(label="Export", command=self.export)
@@ -197,6 +199,10 @@ class ProjectWindow(CTk):
         )
 
         return frame
+
+    def settings(self) -> None:
+        """Open the settings."""
+        SettingsTop()
 
     def remove_section(self) -> None:
         """Remove section from the project."""

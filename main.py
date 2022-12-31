@@ -6,7 +6,7 @@ projects.
 import os
 from tkinter import messagebox as msg
 
-from customtkinter import CTkToplevel
+from customtkinter import CTkToplevel, set_appearance_mode
 
 from pmenu import ProjectMenu
 from pviev import ProjectWindow
@@ -85,6 +85,7 @@ class MainGUI:
 def main() -> None:
     """Main function, run when __name__ is __main__."""
     if RUN:
+        set_appearance_mode(SETTINGS["mode"])
         main_gui = MainGUI()
         main_gui.run()
 

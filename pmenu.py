@@ -1,6 +1,7 @@
 """Author Szymon Lasota
 This module is responsible for creating menu, that allows user to select
-and create projects."""
+and create projects.
+"""
 import sys
 from typing import Callable
 from shutil import rmtree
@@ -8,7 +9,7 @@ from shutil import rmtree
 from customtkinter import CTk, CTkButton, CTkFrame, CTkLabel, CTkToplevel
 
 from settings import HEIGHT, SETTINGS, WIDTH, get_percent, update_settings
-from toplevel import NewProject
+from toplevel import NewProject, SettingsTop
 
 
 class ProjectMenu(CTk):
@@ -68,6 +69,13 @@ class ProjectMenu(CTk):
         )
         new_project_button.place(x=10, y=10)
 
+        settings_button = CTkButton(
+            frame,
+            text="Settings",
+            command=self.settings
+        )
+        settings_button.place(x=10, y=get_percent(HEIGHT, 7))
+
         next_button = CTkButton(
             frame,
             text="Next page",
@@ -81,6 +89,10 @@ class ProjectMenu(CTk):
             command=self.previous
         )
         previous_button.place(x=10, y=get_percent(HEIGHT, 19))
+
+    def settings(self) -> None:
+        """Show settings window."""
+        SettingsTop()
 
     def handle_new_project(self) -> None:
         """Handle the new project."""

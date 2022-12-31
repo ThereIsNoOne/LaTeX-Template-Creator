@@ -6,13 +6,15 @@ user. There are several of them:
 new one, that can be saved for later,
 * EnterTable is used for importing excel or csv files, reading them and
 writing tables.
-* NewProject is used to create new project."""
+* NewProject is used to create new project.
+"""
 from tkinter import messagebox as msg
 from typing import Callable
 
 import pandas as pd
 from customtkinter import (CTkButton, CTkEntry, CTkLabel, CTkOptionMenu,
-                           CTkTextbox, CTkToplevel, StringVar)
+                           CTkTextbox, CTkToplevel, StringVar,
+                           set_appearance_mode)
 
 from settings import (SETTINGS, TOP_HEIGHT, TOP_WIDTH, Mode, Separators,
                       update_settings)
@@ -282,3 +284,31 @@ class NewProject(CTkToplevel):
             command=lambda: self.new_project(entry.get(), self)
         )
         add_button.place(x=10, y=80)
+
+
+class SettingsTop(CTkToplevel):
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.title("Settings")
+        self.settings_gui()
+
+    def settings_gui(self) -> None:
+        """Create GUI."""
+        label = CTkLabel(self, text="Choose window mode")
+        label.place(x=10, y=10)
+
+        mode = CTkOptionMenu(
+            self,
+            values=["Dark", "Light"],
+            command=self.change_mode
+
+        )
+        mode.place(x=10, y=35)
+
+    def change_mode(self, new_mode: str) -> None:
+        """Change the mode of the GUI."""
+        set_appearance_mode(new_mode)
+        SETTINGS["mode"] = new_mode
+        update_settings(SETTINGS)
+        

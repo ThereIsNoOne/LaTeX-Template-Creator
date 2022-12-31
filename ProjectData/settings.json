@@ -8,6 +8,7 @@
         "top_width": 300,
         "top_height": 150
     },
+    "mode": "Light",
     "equations": {
         "Ohm Law": "I = \\frac{U}{R}",
         "Second Newton's law": "F =m\\cdot a"
