@@ -7,6 +7,7 @@ own math equations (save them for later and then reuse it). There is
 easy access to all sections including the preamble which contains
 predefined packages.
 """
+
 import os
 import platform
 import subprocess

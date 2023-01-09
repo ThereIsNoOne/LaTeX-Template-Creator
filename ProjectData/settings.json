@@ -8,10 +8,12 @@
         "top_width": 300,
         "top_height": 150
     },
-    "mode": "Light",
+    "mode": "Dark",
     "equations": {
         "Ohm Law": "I = \\frac{U}{R}",
-        "Second Newton's law": "F =m\\cdot a"
+        "Second Newton's law": "F =m\\cdot a",
+        "Power": "P=I^2R",
+        "Velocity": "v=\\frac{s}{t}"
     },
     "displaymath": {
         "Errors": "&\\Delta X = val\\%{\\m{rdg}} + val{\\m{dgt}} = val\\cdot val{\\m{ unit}} + 0,0003{\\m{ unit}} = val{\\m{ unit}},\\\\ \n &\\delta X = \\frac{\\Delta X}{X}\\cdot 100\\% = \\frac{val}{val}\\cdot 100\\% = val\\%.",
