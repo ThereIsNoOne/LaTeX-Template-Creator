@@ -1,5 +1,8 @@
 {
-    "current": null,
+    "current": [
+        "UserData/FirstProject/",
+        "FirstProject.json"
+    ],
     "window": {
         "width": 1040,
         "height": 720,
@@ -8,7 +11,7 @@
         "top_width": 300,
         "top_height": 150
     },
-    "mode": "Dark",
+    "mode": "Light",
     "equations": {
         "Ohm Law": "I = \\frac{U}{R}",
         "Second Newton's law": "F =m\\cdot a",

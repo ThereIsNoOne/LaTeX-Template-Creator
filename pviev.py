@@ -97,6 +97,7 @@ class ProjectWindow(CTk):
         self.entry.insert(
             INSERT, self.tex_file.text[self.active_section]
         )
+
         return main_frame
 
     def menu_setup(self) -> None:

@@ -6,11 +6,14 @@ projects.
 import os
 from tkinter import messagebox as msg
 
-from customtkinter import CTkToplevel, set_appearance_mode
+from customtkinter import (CTkToplevel, set_appearance_mode,
+                           set_default_color_theme)
 
 from pmenu import ProjectMenu
 from pviev import ProjectWindow
 from settings import RUN, SETTINGS, Active, update_settings
+
+set_default_color_theme("green")
 
 
 class MainGUI:
