@@ -22,10 +22,11 @@ from typing import Callable
 import pandas as pd
 # Font option is available only for Python 3.10 and above
 # (we are not sure about 3.9) and certain versions of customtkinter,
-# because of that it is not implemented in that project, which has to be
-# written in Python 3.8. User can test if it works on his/her machine by
-# uncommenting `self.font` attribute and adding CTkFont to imports from
-# customtkinter.
+# because of that it is not meant to be implemented in that project,
+# which has to be written in Python 3.8, but if it works, we don't mind.
+# WARNING: if you install something fails, we recommend changing version
+# of customtkinter in `requirements.txt` from 5.0.3 to 4.6.3,
+# then reinstall requirements.txt.
 from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
                            CTkLabel, CTkOptionMenu, CTkTextbox, CTkToplevel,
                            StringVar)
