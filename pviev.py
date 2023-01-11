@@ -16,16 +16,35 @@ from shutil import copyfile
 from tkinter import Menu
 from tkinter import filedialog as fd
 from tkinter import messagebox as msg
+from traceback import print_exc
 from typing import Callable
 
 import pandas as pd
+# Font option is available only for Python 3.10 and above
+# (we are not sure about 3.9) and certain versions of customtkinter,
+# because of that it is not implemented in that project, which has to be
+# written in Python 3.8. User can test if it works on his/her machine by
+# uncommenting `self.font` attribute and adding CTkFont to imports from
+# customtkinter.
 from customtkinter import (END, INSERT, CTk, CTkButton, CTkEntry, CTkFrame,
                            CTkLabel, CTkOptionMenu, CTkTextbox, CTkToplevel,
                            StringVar)
 
+try:
+    from customtkinter import CTkFont
+except ImportError:
+    print("During importing fonts error occurred:")
+    print_exc()
+    print()
+    print(
+            "Importing CTkFont failed, your version of customtkinter"
+            + " or/and Python is too old and do not support CTkFont. Since "
+            + "that your program will use normal (default) font for tkinter."
+        )
+
 from latex import TexFile
-from settings import (M_HEIGHT, M_WIDTH, SETTINGS, Mode, Sections, get_percent,
-                      help_file, update_settings)
+from settings import (M_HEIGHT, M_WIDTH, PADDING, SETTINGS, Mode, Sections,
+                      get_percent, help_file, update_settings)
 from texfigures import LatexMath, LatexTable
 from toplevel import EnterMath, EnterTable, NewProject, SettingsTop
 
@@ -58,6 +77,12 @@ class ProjectWindow(CTk):
         self.active_section = Sections.PREAMBLE
         self.title("Project Window")
         self.geometry(f"{M_WIDTH}x{M_HEIGHT}")
+        try:
+            self.font = CTkFont(
+                        family="Consolas", size=12, weight="normal"
+                )
+        except NameError:
+            self.font = None
         self.protocol("WM_DELETE_WINDOW", self.close)
         self.tex_file = TexFile(path=path_project, title=title)
         self.create_gui()
@@ -85,13 +110,14 @@ class ProjectWindow(CTk):
         main_frame = CTkFrame(
             self,
             width=M_WIDTH//3 * 2,
-            height=M_HEIGHT
+            height=M_HEIGHT-PADDING
         )
 
         self.entry = CTkTextbox(
             main_frame,
             width=int(M_WIDTH//3 * 2),
-            height=M_HEIGHT,
+            height=M_HEIGHT-PADDING,
+            font=self.font
         )
         self.entry.place(x=0, y=0)
         self.entry.insert(
@@ -159,7 +185,7 @@ class ProjectWindow(CTk):
         frame = CTkFrame(
             self,
             width=M_WIDTH//3,
-            height=M_HEIGHT
+            height=M_HEIGHT-PADDING
         )
 
         variable = StringVar(self, self.tex_file.sections[0])

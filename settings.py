@@ -15,6 +15,7 @@ settings_path = os.path.join("ProjectData")
 user_path = os.path.join("UserData")
 settings_path_json = os.path.join("ProjectData", "SETTINGS.json")
 
+
 with open(settings_path_json, "rt") as file:
     SETTINGS = load(file)
 
@@ -27,6 +28,7 @@ TOP_WIDTH, TOP_HEIGHT = (
     SETTINGS["window"]["top_width"],
     SETTINGS["window"]["top_height"]
 )
+PADDING = 25
 help_file = os.path.join("ProjectData", "help.pdf")
 
 
