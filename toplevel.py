@@ -289,6 +289,9 @@ class NewProject(CTkToplevel):
 class SettingsTop(CTkToplevel):
 
     def __init__(self, *args, **kwargs) -> None:
+        """Constructor fo the SettingsTop class, provide
+            settings window.
+        """
         super().__init__(*args, **kwargs)
         self.title("Settings")
         self.settings_gui()
