@@ -12,6 +12,7 @@ import os
 import platform
 import subprocess
 import sys
+from pathlib import Path
 from shutil import copyfile
 from tkinter import Menu
 from tkinter import filedialog as fd
