@@ -12,6 +12,7 @@ import os
 import platform
 import subprocess
 import sys
+from pathlib import Path
 from shutil import copyfile
 from tkinter import Menu
 from tkinter import filedialog as fd
@@ -498,11 +499,12 @@ class ProjectWindow(CTk):
         Args:
             path (str): path to **compilation** folder.
         """
-        for main_path, _, files in os.walk(self.project_path):
-            for file in files:
-                if file.endswith(".json"):
-                    continue
-                copyfile(main_path + file, path + "/" + file.split("/")[-1])
+        main_path = Path(self.project_path)
+        files = main_path.glob("*")
+        for file in files:
+            if file.suffix == ".json":
+                continue
+            copyfile(file, path + "/" + file.name)
 
     def close_project(self) -> None:
         """Close project and open main menu."""
