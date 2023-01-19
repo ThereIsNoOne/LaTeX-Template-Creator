@@ -1,4 +1,4 @@
-"""Author Szymon Lasota
+"""Author Szymon Lasota, Aleksandra Supeł
 This module contains the project window class, which is main window. It
 allows user to write and edit LaTeX-style documents easily. It provides
 option to add figures in `.jpeg`, `.pdf` and `.png` files, import tables

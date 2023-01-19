@@ -1,4 +1,4 @@
-"""Author Szymon Lasota
+"""Author Szymon Lasota, Aleksandra Supeł
 This module is responsible for creating menu, that allows user to select
 and create projects.
 """

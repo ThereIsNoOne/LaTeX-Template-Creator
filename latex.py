@@ -1,4 +1,4 @@
-"""Author Szymon Lasota
+"""Author Szymon Lasota, Aleksandra Supeł
 This module contains TexFile class. It is responsible for maintaining
 main `.tex` file, including:
 

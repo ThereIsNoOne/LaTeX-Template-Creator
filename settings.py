@@ -1,4 +1,4 @@
-"""Author Szymon Lasota
+"""Author Szymon Lasota, Aleksandra Supeł
 
 Settings file, contains:
 

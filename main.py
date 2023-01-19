@@ -1,4 +1,4 @@
-"""Author Szymon Lasota
+"""Author Szymon Lasota, Aleksandra Supeł
 This module is responsible for creating both windows (menu and project
 view) and switching between them, also provides function to adding new
 projects.
