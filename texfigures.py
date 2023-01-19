@@ -1,4 +1,4 @@
-"""Author: Szymon Lasota
+"""Author: Szymon Lasota, Aleksandra Supeł
 Module contains classes that are used to create figures, tables and
 math objects in TeX file.
 """

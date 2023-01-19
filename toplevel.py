@@ -1,4 +1,4 @@
-"""Author: Szymon Lasota
+"""Author: Szymon Lasota, Aleksandra Supeł
 Module contains all Toplevel windows, for gathering information from
 user. There are several of them:
 
