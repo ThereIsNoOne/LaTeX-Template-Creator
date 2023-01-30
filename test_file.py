@@ -3,11 +3,13 @@ Module contains test functions for the project.
 Tests are written for `LatexTable` class.
 """
 import pytest
-
 from pandas import DataFrame
+
 from texfigures import LatexTable
 
 
+# Run test from cmd
+# python -m pytest test_file.py
 @pytest.fixture
 def empty_dataframe() -> DataFrame:
     return DataFrame()

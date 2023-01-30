@@ -14,7 +14,7 @@ from typing import Callable
 import pandas as pd
 from customtkinter import (CTkButton, CTkEntry, CTkLabel, CTkOptionMenu,
                            CTkTextbox, CTkToplevel, StringVar,
-                           set_appearance_mode, set_default_color_theme)
+                           set_appearance_mode)
 
 from settings import (SETTINGS, TOP_HEIGHT, TOP_WIDTH, Mode, Separators,
                       update_settings)
